@@ -4,5 +4,8 @@
   "main": "app.js",
   "repository": "https://github.com/limfarmer/FMI_FE.git",
   "author": "Lim JeongHu",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "styled-components": "^6.1.11"
+  }
 }

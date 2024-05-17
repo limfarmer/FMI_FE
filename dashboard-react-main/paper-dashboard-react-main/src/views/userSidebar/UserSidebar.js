@@ -20,7 +20,7 @@ const UserSideBar = () => {
     // setInputValue(e.target.value);
     let nextState = {};
     nextState[e.targer.name] = e.target.value;
-    setState(nextState); // 안되면 this 추가해보기
+    this.setState(nextState); // 안되면 this 추가해보기
   };
   /**
    * 축구api받아오
@@ -39,17 +39,17 @@ const UserSideBar = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const checkResult = () => {
-      const finalList = results;
-      for (let i of finalList) {
-        if (inputValue === i.strTeam) {
-          list.concat(i);
-        }
-      }
-    };
-    checkResult();
-  }, [inputValue, list, results]);
+  // useEffect(() => {
+  //   const checkResult = () => {
+  //     const finalList = results;
+  //     for (let i of finalList) {
+  //       if (inputValue === i.strTeam) {
+  //         list.concat(i);
+  //       }
+  //     }
+  //   };
+  //   checkResult();
+  // }, [inputValue, list, results]);
 
   return (
     <>
