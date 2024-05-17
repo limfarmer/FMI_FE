@@ -1,30 +1,29 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+
+// 키-값 쌍의 객체 배열로 변환하는 함수
+const transformData = (data) => {
+  return data.teams.map((team) => {
+    return {
+      strTeam: team.strTeam,
+      strCountry: team.strCountry,
+      strTeamBadge: team.strTeamBadge,
+    };
+  });
+};
+/**
+ *
+ * @returns SideBar
+ * 사이드바 컴포넌트
+ */
 const SideBar = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [results, setResults] = useState(null);
-  const [list, setList] = useState([]);
-  const [isTrue, setIsTrue] = useState(false);
   const [teamsArray, setTeamsArray] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
   /**
-   * @function
-   * 입력창에 결과값을 실시간으로 저장해주는 onChange함수
-   * @param {*} e
-   * 검색창에 입력한 event값
-   *
+   * 축구 api의 정보를 가져와서 TeamsArray에 담는 useEffect
    */
-  const handleSearch = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  const transformData = (data) => {
-    return data.teams.map((team) => {
-      return Object.entries(team).map(([key, value]) => ({ key, value }));
-    });
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,6 +42,23 @@ const SideBar = () => {
 
     fetchData();
   }, []);
+  // www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=Danny_Welbeck 선수 검색!~
+  /**
+   *
+   * @param {*} input창에 입력값을 받는 event 핸들러
+   */
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+  /**
+   * teamsArray
+   */
+  const filteredTeams = teamsArray.filter((team) => {
+    return (
+      team.strTeam &&
+      team.strTeam.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
 
   if (loading) {
     return <p>Loading...</p>;
@@ -53,25 +69,31 @@ const SideBar = () => {
   }
 
   return (
-    <>
-      <input type="text" onChange={handleSearch} />
-      {/* <SideBarList result={inputValue}></SideBarList> */}
-      {/* {teamsArray &&
-        teamsArray.map((team, index) => (
+    <div>
+      <input
+        type="text"
+        placeholder="Search by team or country"
+        value={searchTerm}
+        onChange={handleSearchChange}
+      />
+      {searchTerm &&
+        filteredTeams.map((team, index) => (
           <div key={index}>
-            {team.strTeam} , {team.strLeague}
-          </div>
-        ))} */}
-      {teamsArray.map((team, index) => (
-        <div key={index}>
-          {team.map(({ key, value }) => (
-            <p key={key}>
-              {value} , {key.strLeague}
+            <p>
+              <strong>logo:</strong>{" "}
+              <img
+                src={team.strTeamBadge}
+                alt={`${team.strTeam}badge`}
+                style={{ width: "50px", height: "50px" }}
+              />
             </p>
-          ))}
-        </div>
-      ))}
-    </>
+            <p>
+              <strong>Team:</strong> {team.strTeam}
+            </p>
+          </div>
+        ))}
+    </div>
   );
 };
+
 export default SideBar;
