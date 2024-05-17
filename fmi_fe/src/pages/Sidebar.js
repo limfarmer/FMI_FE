@@ -1,14 +1,5 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
-import AxiosApi from "api/AxiosApi";
 import axios from "axios";
-
-const transformData = (data) => {
-  return data.teams.map((team) => {
-    return Object.entries(team).map(([key, value]) => ({ key, value }));
-  });
-};
-
 const SideBar = () => {
   const [inputValue, setInputValue] = useState("");
   const [results, setResults] = useState(null);
@@ -26,6 +17,12 @@ const SideBar = () => {
    */
   const handleSearch = (e) => {
     setInputValue(e.target.value);
+  };
+
+  const transformData = (data) => {
+    return data.teams.map((team) => {
+      return Object.entries(team).map(([key, value]) => ({ key, value }));
+    });
   };
 
   useEffect(() => {
