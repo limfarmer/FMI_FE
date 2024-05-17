@@ -7,7 +7,6 @@ import "assets/scss/paper-dashboard.scss?v=1.3.0";
 import "assets/demo/demo.css";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 import AdminLayout from "layouts/Admin.js";
-import UserSideBar from "views/userSidebar/UserSidebar";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -16,7 +15,6 @@ root.render(
     <Routes>
       <Route path="/admin/*" element={<AdminLayout />} />
       <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
-      <Route path="/userSideBar" element={<UserSideBar />} />
     </Routes>
   </BrowserRouter>
 );
