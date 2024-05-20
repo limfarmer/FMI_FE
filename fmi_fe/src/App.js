@@ -1,11 +1,7 @@
 import "./App.css";
-import Detail from "./pages/TeamDetailPage";
+
 function App() {
-  return (
-    <>
-      <Detail></Detail>
-    </>
-  );
+  return;
 }
 
 export default App;
