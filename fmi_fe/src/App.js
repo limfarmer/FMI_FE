@@ -7,7 +7,10 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/TeamDetailPage" element={<TeamDetailPage />} />
+          <Route
+            path="/TeamDetailPage/:teamName"
+            element={<TeamDetailPage />}
+          />
           <Route path="/sidebar" element={<SideBar />} />
         </Routes>
       </Router>
