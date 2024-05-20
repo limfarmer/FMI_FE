@@ -89,10 +89,10 @@ const Detail = () => {
             </div>
           ))}
       </div>
-      <div>{data.strTeam}</div>
-      <div>Section 3</div>
-      <div>Section 4</div>
-      <div>Section 5</div>
+      <div>{data[0] && data[0].strDescriptionEN} section2</div>
+      <div>{data[0] && data[0].strDescriptionEN}</div>
+      <div>{data[0] && data[0].strDescriptionEN}</div>
+      <div>{data[0] && data[0].strDescriptionEN}</div>
     </DetailStyle>
   );
 };

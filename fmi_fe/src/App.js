@@ -1,7 +1,11 @@
 import "./App.css";
-import SideBar from "./pages/SideBarSearch";
+import Detail from "./pages/TeamDetailPage";
 function App() {
-  return <SideBar />;
+  return (
+    <>
+      <Detail></Detail>
+    </>
+  );
 }
 
 export default App;
