@@ -89,7 +89,7 @@ const Detail = () => {
             </div>
           ))}
       </div>
-      <div>Section 2</div>
+      <div>{data.strTeam}</div>
       <div>Section 3</div>
       <div>Section 4</div>
       <div>Section 5</div>
