@@ -1,10 +1,16 @@
 import "./App.css";
 import TeamDetailPage from "./pages/TeamDetailPage";
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import SideBar from "./pages/sideBar/SideBar";
 function App() {
   return (
     <>
-      <TeamDetailPage></TeamDetailPage>
+      <Router>
+        <Routes>
+          <Route path="/TeamDetailPage" element={<TeamDetailPage />} />
+          <Route path="/sidebar" element={<SideBar />} />
+        </Routes>
+      </Router>
     </>
   );
 }
