@@ -42,8 +42,9 @@ const Logo = styled.div`
   background-size: cover;
 `;
 
-const Detail = () => {
-  const [data, setData] = useState(null);
+const TeamDetailPage = () => {
+  /*상세페이지전체*/
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [FollowTeam, setFollowTeam] = useState(null);
   const [teamName, setTeamName] = useState("");
@@ -63,7 +64,7 @@ const Detail = () => {
     if (teamName) {
       fetchData();
     }
-  }, [teamName]);
+  }, [teamName, FollowTeam]);
   const handleInputChange = (event) => {
     setFollowTeam(event.target.value);
   };
@@ -72,6 +73,44 @@ const Detail = () => {
     setTeamName(FollowTeam);
   };
 
+  // ----------------------------------------------------------------------------------------------------------------------------------
+  const [teamsArray, setTeamsArray] = useState([]); // api에서 받아온 데이터를 담는 객체
+
+  // **** 팀 검색 로직 ****
+
+  /**
+   *
+   * @param {*} api에서 받아오는 JSON 데이터
+   * @returns 팀과 팀 로고만 배열에 담음
+   */
+  const transformData = (data) => {
+    return data.teams.map((team) => {
+      return {
+        strTeam: team.strTeam,
+      };
+    });
+  };
+
+  /**
+   * 축구 api의 정보를 가져와서 TeamsArray에 담는 hook
+   */
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?l=English%20Premier%20League`
+        );
+        console.log(response.data, "!");
+        const transformedData = transformData(response.data);
+        setTeamsArray(transformedData);
+        setLoading(false);
+      } catch (e) {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+  // ------------------------------------------------------------------------------------------------------------------------------------------
   return (
     <DetailStyle>
       <div>
@@ -97,4 +136,4 @@ const Detail = () => {
   );
 };
 
-export default Detail;
+export default TeamDetailPage;
