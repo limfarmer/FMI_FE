@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const DetailStyle = styled.div`
   display: flex;
@@ -43,19 +44,22 @@ const Logo = styled.div`
 `;
 
 const TeamDetailPage = () => {
-  /*상세페이지전체*/
+  const { teamName } = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [FollowTeam, setFollowTeam] = useState(null);
-  const [teamName, setTeamName] = useState("");
+  // const [bttTeamName, setBttTeamName] = useState("");
+  const [versus, setVersus] = useState([]);
+  const [awayTeams, setAwayTeams] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
           "https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=" +
-            FollowTeam
+            teamName
         );
+
         setData(response.data.teams);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -64,25 +68,17 @@ const TeamDetailPage = () => {
     if (teamName) {
       fetchData();
     }
-  }, [teamName, FollowTeam]);
+  }, [teamName]);
+
   const handleInputChange = (event) => {
     setFollowTeam(event.target.value);
   };
 
-  const handleButtonClick = () => {
-    setTeamName(FollowTeam);
-  };
+  // const handleButtonClick = () => {
+  //   setBttTeamName(FollowTeam);
+  //   vs();
+  // };
 
-  // ----------------------------------------------------------------------------------------------------------------------------------
-  const [teamsArray, setTeamsArray] = useState([]); // api에서 받아온 데이터를 담는 객체
-
-  // **** 팀 검색 로직 ****
-
-  /**
-   *
-   * @param {*} api에서 받아오는 JSON 데이터
-   * @returns 팀과 팀 로고만 배열에 담음
-   */
   const transformData = (data) => {
     return data.teams.map((team) => {
       return {
@@ -90,19 +86,24 @@ const TeamDetailPage = () => {
       };
     });
   };
+  const versusData = (event) => {
+    return data.teams.map((team) => {
+      return {
+        strTeam: team.strTeam,
+      };
+    });
+  };
 
-  /**
-   * 축구 api의 정보를 가져와서 TeamsArray에 담는 hook
-   */
   useEffect(() => {
+    /* awayteam받아오는api */
     const fetchData = async () => {
       try {
         const response = await axios.get(
           `https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?l=English%20Premier%20League`
         );
-        console.log(response.data, "!");
         const transformedData = transformData(response.data);
-        setTeamsArray(transformedData);
+        console.log(transformedData, "!");
+        setAwayTeams(transformedData);
         setLoading(false);
       } catch (e) {
         setLoading(false);
@@ -110,17 +111,38 @@ const TeamDetailPage = () => {
     };
     fetchData();
   }, []);
-  // ------------------------------------------------------------------------------------------------------------------------------------------
+  useEffect(() => {
+    const vs = async () => {
+      try {
+        // setVersus([]);
+        for (const awayTeam of awayTeams) {
+          if (awayTeams.strTeam !== teamName) {
+            const response = await axios.get(
+              `https://www.thesportsdb.com/api/v1/json/3/searchevents.php?e=${teamName}_vs_${awayTeam.strTeam}`
+            );
+            const versusData = transformData(response.data);
+            console.log(response.data, "결과");
+            setVersus(response.data);
+          }
+        }
+      } catch (error) {
+        console.error("error", error);
+      }
+    };
+    vs();
+  }, [teamName, awayTeams]);
+
   return (
     <DetailStyle>
       <div>
         <input
           type="text"
-          value={FollowTeam || ""}
+          value={teamName}
           onChange={handleInputChange}
           placeholder="Enter team name"
         />
-        <button onClick={handleButtonClick}>Fetch Team Data</button>
+        {/* <button onClick={handleButtonClick}>Fetch Team Data</button> */}
+
         {data &&
           data.map((data, index) => (
             <div key={index}>
@@ -128,8 +150,19 @@ const TeamDetailPage = () => {
             </div>
           ))}
       </div>
+
       <div>{data[0] && data[0].strDescriptionEN} section2</div>
-      <div>{data[0] && data[0].strDescriptionEN}</div>
+      <div>
+        <div>
+          <h2>Events</h2>
+          <ul>
+            {versus &&
+              versus.map((versus, index) => (
+                <li key={index}>{versus.strEvent}</li>
+              ))}
+          </ul>
+        </div>
+      </div>
       <div>{data[0] && data[0].strDescriptionEN}</div>
       <div>{data[0] && data[0].strDescriptionEN}</div>
     </DetailStyle>
