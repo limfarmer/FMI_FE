@@ -28,9 +28,6 @@ const FollowList = ({ handleClickEvent }) => {
   }, [dummyId]);
   return (
     <>
-      <p>
-        아이디 값 넘어오기 전까지 더미 아이디 입력하는 input 창 space누르면 나옴
-      </p>
       <input type="text" value="test" onChange={insertDummyId} />
       {followList &&
         followList.map((list, index) => (

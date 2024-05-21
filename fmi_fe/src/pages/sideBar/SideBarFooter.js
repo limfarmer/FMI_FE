@@ -2,12 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 const FooterContainer = styled.footer`
-  padding: 20px;
+  font-size: 10px;
+  color: black;
   background-color: #f1f1f1;
   text-align: center;
   margin-top: 20px;
   position: fixed;
   width: 100%;
+
   bottom: 0;
 `;
 

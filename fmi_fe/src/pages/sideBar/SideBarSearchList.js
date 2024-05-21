@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 import AxiosApi from "../../api/AxiosApi";
 import FootballApiData from "../FootballApiData";
 import styled from "styled-components";
+/** 검색 결과 list 스타일 */
 const SearchResult = styled.button``;
+
 const SideBarSearchList = ({ handleEvent }) => {
   const [inputValue, setInputValue] = useState("");
-  const { teamsArray, playerArray, loading } = FootballApiData(inputValue);
+  const { teamsArray, playerArray } = FootballApiData(inputValue);
   /**
    *
    * @param {event} inputValue input창에 입력한값을 상태관리하는 handler
@@ -82,14 +84,16 @@ const SideBarSearchList = ({ handleEvent }) => {
         ))}
       {inputValue &&
         filteredPlayerResult.map((team, index) => (
-          <div key={index}>
-            <p>
-              <strong>Team:</strong> {team.strTeam}
-            </p>
-            <p>
-              <strong>Player:</strong> {team.strPlayer}
-            </p>
-          </div>
+          <SearchResult onClick={() => handleEvent(team.strTeam)} key={index}>
+            <div key={index}>
+              <p>
+                <strong>Team:</strong> {team.strTeam}
+              </p>
+              <p>
+                <strong>Player:</strong> {team.strPlayer}
+              </p>
+            </div>
+          </SearchResult>
         ))}
     </>
   );
