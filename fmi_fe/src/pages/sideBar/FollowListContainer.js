@@ -1,6 +1,3 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import AxiosApi from "../../api/AxiosApi";
 import { useNavigate } from "react-router-dom";
 import FollowList from "./FollowList";
 
