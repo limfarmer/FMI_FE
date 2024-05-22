@@ -8,7 +8,7 @@ const HeaderStyle = styled.div`
   padding: 0 20px;
   height: 70px;
   background-color: white;
-  color: black;
+  color: aliceblue;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   font-size: 48px;
   position: fixed;
