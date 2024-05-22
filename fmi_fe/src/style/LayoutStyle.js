@@ -22,18 +22,13 @@ export const OpenSideBarStyle = styled.div`
 export const SidebarItem = styled.div``;
 
 export const HamburgerButton = styled.button`
-  position: fixed;
-  top: 20px;
-  right: 20px;
   z-index: 1000;
   width: 30px;
   height: 30px;
   background-color: white;
+  margin-right: 30px;
   border: none;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
   align-items: center;
 
   & div {

@@ -16,7 +16,6 @@ function App() {
               element={<TeamDetailPage />}
             />
           </Route>
-          <Route path="/Main" element={<Main />} />
         </Routes>
       </Router>
     </>

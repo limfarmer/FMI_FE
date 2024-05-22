@@ -2,24 +2,31 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const Member = styled.div``;
-const NonMember = styled.div``;
+const Member = styled.h2``;
 const Button = styled.div``;
 const WelcomeBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   width: 300px;
   height: 300px;
-  background-color: red;
+  background-color: transparent;
+  color: #fff;
+  font-size: 2rem;
   position: absolute;
-  bottom: 100px;
-  left: 100px;
+  left: 15vw;
+  bottom: 20vh;
   text-align: center;
 `;
 
 const MainFollowCheckButton = styled.button`
-  width: 100px;
-  height: 100px;
-  background-color: blue;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
   border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
   cursor: pointer;
 `;
 
@@ -46,18 +53,18 @@ const WelcomeContainer = () => {
       <WelcomeBox>
         {isLogin ? (
           <>
-            <Member>환영합니다, {loginId}님 </Member>
-            <MainFollowCheckButton>
-              <LoginLink to="/TeamDetailPage/Arsenal">마이페이지</LoginLink>
-            </MainFollowCheckButton>
+            <Member>환영합니다! {loginId}님 </Member>
+            <LoginLink to="/TeamDetailPage/Arsenal">
+              <MainFollowCheckButton>마이페이지</MainFollowCheckButton>
+            </LoginLink>
           </>
         ) : (
-          <NonMember>
-            환영합니다, 방문자님!
+          <Member>
+            환영합니다! 방문자님
             <Button>
               <LoginLink to="/TeamDetailPage/Arsenal">로그인</LoginLink>
             </Button>
-          </NonMember>
+          </Member>
         )}
       </WelcomeBox>
     </>
