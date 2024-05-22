@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { Outlet } from "react-router-dom"; // 자식 컴포넌트를 특정영역에 포함시키는 것
+import { Outlet, useNavigate } from "react-router-dom"; // 자식 컴포넌트를 특정영역에 포함시키는 것
 import SidebarContainer from "./sideBar/SideBarContainer";
 import { StyledLink } from "../style/LayoutStyle";
 import FMI_logo from "../images/FMI_logo.png";
+import { useEffect, useState } from "react";
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -35,19 +36,33 @@ const HeaderMenuStyle = styled.div`
   width: 900px;
 `;
 const Layout = () => {
+  /**
+   * HOME 버튼 눌렀을때 재
+   */
+  const [isKey, setIsKey] = useState(false);
+  const forceRerender = () => {
+    setIsKey(!isKey);
+  };
+  const onClick = () => {
+    forceRerender();
+  };
+
   return (
     <>
       <Container>
         <HeaderStyle>
           <img src={FMI_logo} alt="FMI_logo" />
           <HeaderMenuStyle>
-            <StyledLink to="/">HOME</StyledLink>
+            <StyledLink to="/" onClick={onClick}>
+              HOME
+            </StyledLink>
             <StyledLink to="/">ABOUT US</StyledLink>
             <StyledLink to="/">CONTACT</StyledLink>
           </HeaderMenuStyle>
           <SidebarContainer></SidebarContainer>
         </HeaderStyle>
-        <main>
+        {/* key는 react에서 제공하는 고유식별자 변경 추가 삭제를 식별하는데 사용 */}
+        <main key={isKey}>
           <Outlet />
         </main>
       </Container>
