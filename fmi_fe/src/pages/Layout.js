@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { Outlet, useNavigate } from "react-router-dom"; // 자식 컴포넌트를 특정영역에 포함시키는 것
-import SidebarContainer from "./sideBar/SideBarContainer";
+import { Outlet } from "react-router-dom"; // 자식 컴포넌트를 특정영역에 포함시키는 것
+import SidebarContainer from "./sideBarComponent/SideBarContainer";
 import { StyledLink } from "../style/LayoutStyle";
 import FMI_logo from "../images/FMI_logo.png";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -16,9 +16,9 @@ const HeaderStyle = styled.div`
   display: flex;
   justify-content: space-between;
   height: 70px;
-  /* background-color: white; */
   color: #e9e9ea;
   font-size: 24px;
+  z-index: 99;
   position: fixed;
   padding-top: 20px;
   top: 0;

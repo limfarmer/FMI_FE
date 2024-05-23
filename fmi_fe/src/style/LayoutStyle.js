@@ -13,7 +13,7 @@ export const OpenSideBarStyle = styled.div`
   top: 0;
   right: 0;
   height: 1024px;
-  width: 250px;
+  width: 340px;
   transform: ${(props) =>
     props.isOpen ? "translateX(0)" : "translateX(100%)"};
   transition: transform 0.4s ease-in-out;
@@ -23,10 +23,9 @@ export const SidebarItem = styled.div``;
 
 export const HamburgerButton = styled.button`
   z-index: 1000;
-  width: 30px;
-  height: 30px;
-  background-color: white;
-  margin-right: 30px;
+  width: 5%;
+  height: 2rem;
+  background-color: transparent;
   border: none;
   cursor: pointer;
   align-items: center;

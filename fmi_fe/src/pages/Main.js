@@ -19,9 +19,10 @@ const Back = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 100vh;
-  object-fit: cover;
+  object-fit: cover; // 사진 픽셀을 안깨지고 화면에 딱 맞추게 하는 태그
   top: 0;
   left: 0;
+  //load가 되면 opcity1로 변경하며 배경화면이 효과주면서 나오게하기
   opacity: ${({ loaded }) => (loaded ? 1 : 0)};
   transition: opacity 0.9s ease-in-out;
 `;
@@ -41,28 +42,21 @@ const Image = styled.img`
 const Main = () => {
   const [imageURL, setImageURL] = useState("");
   const [loaded, setLoaded] = useState(false);
-  // 1부터 9까지의 이미지를 불러와서 배열에 저장
+  // 1부터 8까지의 이미지를 불러와서 배열에 저장
   const images = useMemo(
     () =>
-      Array.from({ length: 9 }, (_, index) =>
+      Array.from({ length: 8 }, (_, index) =>
         require(`../images/${index + 1}.jpg`)
       ),
     []
   );
 
-  //${imgNum}
-
   useEffect(() => {
-    const imgNum = Math.floor(Math.random() * 9); // 0부터 8까지의 랜덤한 숫자를 생성
+    const imgNum = Math.floor(Math.random() * 8); // 0부터 7까지의 랜덤한 숫자를 생성
     setImageURL(images[imgNum]);
     setLoaded(true);
-  }, [loaded]); // 이미지 로드 시점을 변경해줘야 합니다.
+  }, [loaded]); // 사진이 load되는 시점에 랜더링
 
-  // const onInsert = useCallback(() => {
-  //   const imgNum = Math.floor(Math.random() * 9); // 0부터 8까지의 랜덤한 숫자를 생성
-  //   setImageURL(images[imgNum]);
-  //   setLoaded(true);
-  // }, [imageURL, loaded]);
   return (
     <MainContainer>
       <Back>

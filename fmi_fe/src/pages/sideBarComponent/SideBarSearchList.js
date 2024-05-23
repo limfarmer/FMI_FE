@@ -5,6 +5,15 @@ import FootballApiData from "../FootballApiData";
 import styled from "styled-components";
 /** 검색 결과 list 스타일 */
 const SearchResult = styled.button``;
+const SearchBarStyle = styled.div`
+  width: 100%;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  & input {
+    width: 70%;
+  }
+`;
 
 const SideBarSearchList = ({ handleEvent }) => {
   const [inputValue, setInputValue] = useState("");
@@ -58,12 +67,14 @@ const SideBarSearchList = ({ handleEvent }) => {
   });
   return (
     <>
-      <input
-        type="text"
-        placeholder="팀이름이나 선수이름 입력하세요."
-        value={inputValue}
-        onChange={handleSearchChange}
-      />
+      <SearchBarStyle>
+        <input
+          type="text"
+          placeholder="팀이름이나 선수이름 입력하세요."
+          value={inputValue}
+          onChange={handleSearchChange}
+        />
+      </SearchBarStyle>
       {inputValue &&
         filteredTeamResult.map((team, index) => (
           <SearchResult onClick={() => handleEvent(team.strTeam)} key={index}>
