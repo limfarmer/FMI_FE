@@ -1,26 +1,36 @@
 import React from "react";
-import "../../style/MyPageSidebar.css"; // 스타일링을 위한 CSS 파일
+import styles from "../../src/style/MyPage.module.css";
+import logo from "../../src/images/FMI_logo.png"; // 로고 이미지 파일 경로를 수정하세요
 
 const MyPageSidebar = ({ activeTab, setActiveTab }) => {
   return (
-    <div className="sidebar">
+    <div className={styles.sidebar}>
+      <div className={styles.logo}>
+        <img src={logo} alt="Logo" />
+      </div>
       <button
-        className={activeTab === "profile" ? "active" : ""}
+        className={`${styles.sidebarButton} ${
+          activeTab === "profile" ? styles.sidebarButtonActive : ""
+        }`}
         onClick={() => setActiveTab("profile")}
       >
-        회원 정보 수정
+        Edit Profile
       </button>
       <button
-        className={activeTab === "follow" ? "active" : ""}
+        className={`${styles.sidebarButton} ${
+          activeTab === "follow" ? styles.sidebarButtonActive : ""
+        }`}
         onClick={() => setActiveTab("follow")}
       >
-        팔로우 팀 관리
+        Followed Teams
       </button>
       <button
-        className={activeTab === "delete" ? "active" : ""}
+        className={`${styles.sidebarButton} ${
+          activeTab === "delete" ? styles.sidebarButtonActive : ""
+        }`}
         onClick={() => setActiveTab("delete")}
       >
-        회원 탈퇴
+        Delete Account
       </button>
     </div>
   );

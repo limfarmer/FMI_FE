@@ -66,5 +66,3 @@ const Header = () => {
     </HeaderStyle>
   );
 };
-
-export default Header;

@@ -1,21 +1,12 @@
-import React, { useEffect, useState } from "react";
-import AxiosApi from "../api/AxiosApi";
+import React, { useState } from "react";
+import MyPageSidebar from "./MyPageSidebar";
 import EditProfile from "./EditProfile";
 import FollowManagement from "./FollowManagement";
 import DeleteAccount from "./DeleteAccount";
-import MyPageSidebar from "./MyPageSidebar";
+import styles from "../style/MyPage.module.css";
 
 const MyPage = () => {
-  const [user, setUser] = useState(null);
-  const [activeTab, setActiveTab] = useState("profile"); // 'profile', 'follow', 'delete'
-
-  useEffect(() => {
-    AxiosApi.getUserInfo()
-      .then((response) => setUser(response.data))
-      .catch((error) =>
-        console.error("사용자 정보를 가져오는 중 오류 발생:", error)
-      );
-  }, []);
+  const [activeTab, setActiveTab] = useState("profile");
 
   const renderContent = () => {
     switch (activeTab) {
@@ -26,23 +17,14 @@ const MyPage = () => {
       case "delete":
         return <DeleteAccount />;
       default:
-        return null;
+        return <EditProfile />;
     }
   };
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className={styles.mypageContainer}>
       <MyPageSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-      <div style={{ marginLeft: "220px", padding: "20px", width: "100%" }}>
-        {user ? (
-          <div>
-            <h1>{user.name}님, 환영합니다</h1>
-            {renderContent()}
-          </div>
-        ) : (
-          <p>로딩 중...</p>
-        )}
-      </div>
+      <div className={styles.contentContainer}>{renderContent()}</div>
     </div>
   );
 };

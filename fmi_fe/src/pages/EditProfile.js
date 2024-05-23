@@ -28,33 +28,27 @@ const EditProfile = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        이름:
-        <input
-          type="text"
-          name="name"
-          value={user.name}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        이메일:
-        <input
-          type="email"
-          name="email"
-          value={user.email}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        닉네임:
-        <input
-          type="text"
-          name="nickname"
-          value={user.nickname}
-          onChange={handleChange}
-        />
-      </label>
+      <label>이름:</label>
+      <input
+        type="text"
+        name="name"
+        value={user.name}
+        onChange={handleChange}
+      />
+      <label>이메일:</label>
+      <input
+        type="email"
+        name="email"
+        value={user.email}
+        onChange={handleChange}
+      />
+      <label>닉네임:</label>
+      <input
+        type="text"
+        name="nickname"
+        value={user.nickname}
+        onChange={handleChange}
+      />
       <button type="submit">변경 사항 저장</button>
     </form>
   );

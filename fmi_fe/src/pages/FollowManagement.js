@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AxiosApi from "../api/AxiosApi";
+import AxiosApi from "../api/AxiosApi"; // 경로 수정
 
 const FollowManagement = () => {
   const [follows, setFollows] = useState([]);

@@ -3,6 +3,8 @@ import TeamDetailPage from "./pages/TeamDetailPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from "./pages/Main";
 import Layout from "./pages/Layout";
+import MyPage from "./pages/MyPage";
+
 function App() {
   return (
     <>
@@ -15,6 +17,7 @@ function App() {
               element={<TeamDetailPage />}
             />
           </Route>
+          <Route path="/MyPage" element={<MyPage />} />
         </Routes>
       </Router>
     </>

@@ -1,15 +1,15 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AxiosApi from "../api/AxiosApi";
 
 const DeleteAccount = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleDelete = () => {
     AxiosApi.deleteUser()
       .then(() => {
         alert("계정이 성공적으로 삭제되었습니다.");
-        history.push("/");
+        navigate("/");
       })
       .catch((error) => console.error("회원 탈퇴 중 오류 발생:", error));
   };
