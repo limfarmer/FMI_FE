@@ -165,7 +165,7 @@ const TeamDetailPage = () => {
 
   const FBtnClick = async () => {
     setActive((prevState) => !prevState);
-    return await axios.get(FMI_DOMAIN + `/follow${teamName}`);
+    return await axios.get(FMI_DOMAIN + `/follow/get${teamName}`);
   };
 
   const handleInputChange = (event) => {

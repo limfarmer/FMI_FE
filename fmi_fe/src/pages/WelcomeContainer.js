@@ -2,14 +2,19 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const Member = styled.h2``;
+const Member = styled.span`
+  font-size: 150%;
+  font-weight: bold;
+  width: 100%;
+  height: 100%;
+`;
 const Button = styled.div``;
 const WelcomeBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 300px;
-  height: 300px;
+  width: 20%;
+  height: 40%;
   background-color: transparent;
   color: #fff;
   font-size: 2rem;
@@ -33,6 +38,7 @@ const MainFollowCheckButton = styled.button`
 const LoginLink = styled(Link)`
   text-decoration: none;
   color: inherit;
+  font-size: 30%;
 `;
 
 const WelcomeContainer = () => {

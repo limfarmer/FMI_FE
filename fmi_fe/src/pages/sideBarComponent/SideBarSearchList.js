@@ -7,11 +7,19 @@ import styled from "styled-components";
 const SearchResult = styled.button``;
 const SearchBarStyle = styled.div`
   width: 100%;
+  height: 3%;
   position: fixed;
   top: 1rem;
   left: 1rem;
+
   & input {
-    width: 70%;
+    width: 90%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: #f1f1f1;
+    border-radius: 40px;
+    padding-left: 10px;
   }
 `;
 

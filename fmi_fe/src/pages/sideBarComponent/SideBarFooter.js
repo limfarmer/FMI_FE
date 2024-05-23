@@ -9,7 +9,7 @@ const FooterContainer = styled.footer`
   margin-top: 20px;
   position: fixed;
   width: 100%;
-
+  height: 20%;
   bottom: 0;
 `;
 

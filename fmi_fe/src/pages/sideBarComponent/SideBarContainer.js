@@ -7,7 +7,11 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 const SidebarContainer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const sidebarRef = useRef(null); // 현재 사이드바의 DOM 상태를 관리할 Ref hook 선언
-
+  /**
+   *
+   * @param {event} click 사이드바의 영역을 제외한 부분을 click을 sidebarRef.current로 확인후
+   * 그외 부분을 클릭시(!sidebarRef.current.contains(event.target)) setIsOpen을 false로 바꿔 닫음
+   */
   const handleClickOutside = (event) => {
     if (
       isOpen &&
@@ -17,6 +21,9 @@ const SidebarContainer = () => {
       setIsOpen(false);
     }
   };
+  /**
+   * document 접근 후 EventLister를 이용해서 isOpen의 상태관리
+   */
   useEffect(() => {
     if (isOpen) {
       document.addEventListener("click", handleClickOutside);
@@ -34,6 +41,7 @@ const SidebarContainer = () => {
 
   return (
     <>
+      {/* 사이드 바의 전체 감싸는 div */}
       <div ref={sidebarRef}>
         <HamburgerButton onClick={onClick}>
           <FontAwesomeIcon
