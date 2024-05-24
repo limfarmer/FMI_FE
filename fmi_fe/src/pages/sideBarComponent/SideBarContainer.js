@@ -1,4 +1,4 @@
-import { HamburgerButton } from "../../style/LayoutStyle";
+import { HamburgerButton, SideBarBlur } from "../../style/LayoutStyle";
 import { useEffect, useRef, useState } from "react";
 import SideBarOpen from "./SideBarOpen";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +8,6 @@ const SidebarContainer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const sidebarRef = useRef(null); // 현재 사이드바의 DOM 상태를 관리할 Ref hook 선언
   /**
-   *
    * @param {event} click 사이드바의 영역을 제외한 부분을 click을 sidebarRef.current로 확인후
    * 그외 부분을 클릭시(!sidebarRef.current.contains(event.target)) setIsOpen을 false로 바꿔 닫음
    */
@@ -18,6 +17,7 @@ const SidebarContainer = () => {
       sidebarRef.current &&
       !sidebarRef.current.contains(event.target)
     ) {
+      // console.log("너니?");
       setIsOpen(false);
     }
   };
@@ -37,6 +37,7 @@ const SidebarContainer = () => {
 
   const onClick = () => {
     setIsOpen(true);
+    console.log("클릭", isOpen);
   };
 
   return (
@@ -54,6 +55,7 @@ const SidebarContainer = () => {
             }}
           />
         </HamburgerButton>
+        {/* <SideBarBlur ref={sidebarRef}></SideBarBlur> */}
         <SideBarOpen isOpen={isOpen}></SideBarOpen>
       </div>
     </>

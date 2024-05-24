@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
+// 사이드바 style 파일 만들기!!!!!
 export const SidebarStyle = styled.div``;
 export const OpenSideBarStyle = styled.div`
   position: fixed;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background-color: #333;
   color: white;
@@ -18,8 +18,17 @@ export const OpenSideBarStyle = styled.div`
     props.isOpen ? "translateX(0)" : "translateX(100%)"};
   transition: transform 0.4s ease-in-out;
 `;
-
+export const BlurDiv = styled.div``;
 export const SidebarItem = styled.div``;
+// export const SideBarBlur = styled.div`
+//   width: 70%;
+//   height: 100rem;
+//   position: absolute;
+//   background-color: rgba(128, 128, 128, 0.8);
+//   top: 0;
+//   left: 0;
+//   display: ${(props) => (props.isOpen ? "none" : "block")};
+// `;
 
 export const HamburgerButton = styled.button`
   z-index: 1000;

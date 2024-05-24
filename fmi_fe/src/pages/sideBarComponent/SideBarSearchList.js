@@ -4,7 +4,17 @@ import AxiosApi from "../../api/AxiosApi";
 import FootballApiData from "../FootballApiData";
 import styled from "styled-components";
 /** 검색 결과 list 스타일 */
-const SearchResult = styled.button``;
+const SearchResult = styled.button`
+  border: none;
+  outline: none;
+  background-color: inherit;
+  color: white;
+
+  cursor: pointer;
+  & div {
+    white-space: nowrap;
+  }
+`;
 const SearchBarStyle = styled.div`
   width: 100%;
   height: 3%;
@@ -83,37 +93,46 @@ const SideBarSearchList = ({ handleEvent }) => {
           onChange={handleSearchChange}
         />
       </SearchBarStyle>
-      {inputValue &&
-        filteredTeamResult.map((team, index) => (
-          <SearchResult onClick={() => handleEvent(team.strTeam)} key={index}>
-            <div key={index}>
-              <p>
-                <strong>logo:</strong>{" "}
-                <img
-                  src={team.strTeamBadge}
-                  alt={`${team.strTeam}badge`}
-                  style={{ width: "50px", height: "50px" }}
-                />
-              </p>
-              <p>
-                <strong>Team:</strong> {team.strTeam}
-              </p>
-            </div>
-          </SearchResult>
-        ))}
-      {inputValue &&
-        filteredPlayerResult.map((team, index) => (
-          <SearchResult onClick={() => handleEvent(team.strTeam)} key={index}>
-            <div key={index}>
-              <p>
-                <strong>Team:</strong> {team.strTeam}
-              </p>
-              <p>
-                <strong>Player:</strong> {team.strPlayer}
-              </p>
-            </div>
-          </SearchResult>
-        ))}
+      <ul style={{ overflow: "scroll", listStyle: "none" }}>
+        <li>
+          {inputValue &&
+            filteredTeamResult.map((team, index) => (
+              <SearchResult
+                onClick={() => handleEvent(team.strTeam)}
+                key={index}
+              >
+                <div key={index}>
+                  logo:
+                  <img
+                    src={team.strTeamBadge}
+                    alt={`${team.strTeam}badge`}
+                    style={{ width: "20px", height: "20px" }}
+                  />
+                  Team: {team.strTeam}
+                </div>
+              </SearchResult>
+            ))}
+        </li>
+        <li>----</li>
+        <li>
+          {inputValue &&
+            filteredPlayerResult.map((team, index) => (
+              <SearchResult
+                onClick={() => handleEvent(team.strTeam)}
+                key={index}
+              >
+                {team.strTeam === "_Retired Soccer" ||
+                ("_Retired WWE" && !"ALL") ? (
+                  <div></div>
+                ) : (
+                  <div key={index}>
+                    Team: {team.strTeam}/ Player: {team.strPlayer}
+                  </div>
+                )}
+              </SearchResult>
+            ))}
+        </li>
+      </ul>
     </>
   );
 };

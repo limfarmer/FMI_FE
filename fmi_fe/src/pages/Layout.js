@@ -46,7 +46,7 @@ const Layout = () => {
   const onClick = () => {
     forceRerender();
   };
-
+  const userId = localStorage.getItem("login");
   return (
     <>
       <Container>
@@ -56,6 +56,7 @@ const Layout = () => {
             <StyledLink to="/" onClick={onClick}>
               HOME
             </StyledLink>
+            {userId && <StyledLink to="/mypage">MY PAGE</StyledLink>}
             <StyledLink to="/">ABOUT US</StyledLink>
             <StyledLink to="/">CONTACT</StyledLink>
           </HeaderMenuStyle>

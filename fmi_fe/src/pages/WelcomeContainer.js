@@ -6,7 +6,7 @@ const Member = styled.span`
   font-size: 150%;
   font-weight: bold;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
 `;
 const Button = styled.div``;
 const WelcomeBox = styled.div`
@@ -43,13 +43,13 @@ const LoginLink = styled(Link)`
 
 const WelcomeContainer = () => {
   const [isLogin, setIsLogin] = useState(false);
-  localStorage.setItem("login", "TRUE"); // 아직 로그인 페이지가 완성 안돼서 임시로 true로 박고 나중에 id값 받아올 예정
+  localStorage.setItem("login", "임정후"); // 아직 로그인 페이지가 완성 안돼서 임시로 true로 박고 나중에 id값 받아올 예정
   const loginId = localStorage.getItem("login");
   /**
    * 로그인 상태 관리
    */
   useEffect(() => {
-    if (loginId === "TRUE") {
+    if (loginId === "임정후") {
       setIsLogin(true);
     }
   }, [loginId]);
@@ -59,8 +59,11 @@ const WelcomeContainer = () => {
       <WelcomeBox>
         {isLogin ? (
           <>
-            <Member>환영합니다! {loginId}님 </Member>
-            <LoginLink to="/TeamDetailPage/Arsenal">
+            <Member>
+              환영합니다! <br />
+              {loginId}님{" "}
+            </Member>
+            <LoginLink to="/mypage">
               <MainFollowCheckButton>마이페이지</MainFollowCheckButton>
             </LoginLink>
           </>
@@ -68,7 +71,7 @@ const WelcomeContainer = () => {
           <Member>
             환영합니다! 방문자님
             <Button>
-              <LoginLink to="/TeamDetailPage/Arsenal">로그인</LoginLink>
+              <LoginLink to="/login">로그인</LoginLink>
             </Button>
           </Member>
         )}
