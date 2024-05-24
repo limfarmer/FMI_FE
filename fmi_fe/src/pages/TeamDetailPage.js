@@ -139,15 +139,15 @@ const VsDateStyle = styled.div`
 const TeamDetailPage = () => {
   /*전체상세페이지*/
   const { teamName } = useParams();
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [FollowTeam, setFollowTeam] = useState(null);
-  const [versus, setVersus] = useState([]);
-  const [awayTeams, setAwayTeams] = useState([]);
-  const [active, setActive] = useState(false);
+  const [data, setData] = useState([]); /*1번에서 선언 */
+  const [loading, setLoading] = useState(false); /*4번에서 선언 */
+  const [versus, setVersus] = useState([]); /*3번에서 선언 */
+  const [awayTeams, setAwayTeams] = useState([]); /*4번에서 선언 */
+  const [active, setActive] = useState(false); /*2번에서 선언 */
 
   useEffect(() => {
     const fetchData = async () => {
+      /* teamname받아서 해당 팀의 정보를 받아오는 코드입니다  1번 */
       try {
         const response = await axios.get(
           "https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=" +
@@ -164,28 +164,26 @@ const TeamDetailPage = () => {
   }, [teamName]);
 
   const FBtnClick = async () => {
+    /** 팔로우 쏴주는 버튼 이 코드 디버깅 해야됨 아직 테스트안함 */
+    //팔로우팀 추가&삭제하는 코드입니다.  2번
     setActive((prevState) => !prevState);
-    return await axios.get(FMI_DOMAIN + `/follow/get${teamName}`);
-  };
-
-  const handleInputChange = (event) => {
-    setFollowTeam(event.target.value);
-  };
-
-  const transformData = (data) => {
-    return data.teams.map((team) => {
-      return {
-        strTeam: team.strTeam,
-      };
-    });
+    const userId = "userId";
+    if (!active) {
+      return await axios.get(
+        FMI_DOMAIN + `/followupdate/insert/${(userId, teamName)}`
+      );
+    } else {
+      return await axios.delete(
+        FMI_DOMAIN + `/followupdate/delete/${(userId, teamName)}`
+      );
+    }
   };
 
   const versusData = (data) => {
-    /* awayTeam뽑아주기*/
+    /* 2023-2024시즌만 뽑아주는 코드입니다  */
     if (!data || !data.event) {
       return []; // 데이터가 없는 경우 빈 배열 반환
     }
-
     return data.event
       .map((away) => {
         if (away.strSeason === "2023-2024") {
@@ -201,11 +199,11 @@ const TeamDetailPage = () => {
   };
 
   useEffect(() => {
-    /* 첫번째 api에서 전체 경기리스트 뽑아내고 두번째 api에서 내팔로우팀과 awayTeam경기 리스트 뽑기 */
+    /* 첫번째 api에서 전체 경기리스트 뽑아내고 두번째 api에서 내팔로우팀과 awayTeam경기 리스트 뽑기 3번 */
     const vs = async () => {
       try {
         const awayTeamsResponse = await axios.get(
-          `https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?l=English%20Premier%20League`
+          `https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?l=English%20Premier%20League` /*첫번째api입니다 */
         );
         const awayTeams = awayTeamsResponse.data.teams.map(
           (team) => team.strTeam
@@ -214,7 +212,7 @@ const TeamDetailPage = () => {
           /*2차원 배열을 1차원으로 바꿔주는 거라는데 잘모르겠음... */
           awayTeams.map(async (awayTeam) => {
             const response = await axios.get(
-              `https://www.thesportsdb.com/api/v1/json/3/searchevents.php?e=${teamName}_vs_${awayTeam}`
+              `https://www.thesportsdb.com/api/v1/json/3/searchevents.php?e=${teamName}_vs_${awayTeam}` /*두번째api입니다 */
             );
             return versusData(response.data);
           })
@@ -229,7 +227,7 @@ const TeamDetailPage = () => {
   }, [teamName]);
 
   useEffect(() => {
-    /* awayteam받아오는api */
+    /* 전체경기일정api중에서 awayteam을 받아오는코드입니다  4번*/
     const fetchData = async () => {
       try {
         const response = await axios.get(
@@ -245,13 +243,24 @@ const TeamDetailPage = () => {
     };
     fetchData();
   }, []);
+
+  const transformData = (data) => {
+    /*4번에서 뽑은 데이터중에 팀뽑아내기 */
+    return data.teams.map((team) => {
+      return {
+        strTeam: team.strTeam,
+      };
+    });
+  };
+
   const sortedVersus = versus.sort(
-    /*경기일정을 내림차순 해주는 코드*/
+    /*경기일정을 최근 날짜순으로 내림차순 해주는 코드입니다*/
     (a, b) => new Date(b.dateEvent) - new Date(a.dateEvent)
   );
+
   return (
     <DetailStyle>
-      <seition1>
+      <section1>
         {data &&
           data.map((data, index) => (
             <div key={index}>
@@ -264,7 +273,7 @@ const TeamDetailPage = () => {
               </LogoContainer>
             </div>
           ))}
-      </seition1>
+      </section1>
 
       <section2>
         <div>
@@ -273,7 +282,7 @@ const TeamDetailPage = () => {
         </div>
       </section2>
 
-      <seition3>
+      <section3>
         <VsDateStyle>
           <h2>경기일정</h2>
           <ul>
@@ -287,14 +296,14 @@ const TeamDetailPage = () => {
               ))}
           </ul>
         </VsDateStyle>
-      </seition3>
+      </section3>
 
-      <seition4>
+      <section4>
         <div>
           <h2>홈구장</h2>
           {data[0] && data[0].strStadiumDescription}
         </div>
-      </seition4>
+      </section4>
 
       <section5>
         <VsDateStyle>
