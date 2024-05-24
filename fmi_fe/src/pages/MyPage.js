@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MyPageSidebar from "./MyPageSidebar";
 import EditProfile from "./EditProfile";
 import FollowManagement from "./FollowManagement";
@@ -7,7 +7,14 @@ import styles from "../style/MyPage.module.css";
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState("profile");
-  const userId = "your_user_id"; // 실제 사용자 ID로 대체해야 합니다.
+  const [userId, setUserId] = useState("");
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
 
   const renderContent = () => {
     switch (activeTab) {
