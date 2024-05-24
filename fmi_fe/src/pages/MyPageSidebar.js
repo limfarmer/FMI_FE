@@ -1,11 +1,22 @@
 import React from "react";
-import styles from "../../src/style/MyPage.module.css";
-import logo from "../../src/images/FMI_logo.png"; // 로고 이미지 파일 경로를 수정하세요
+import styles from "../style/MyPage.module.css";
+import logo from "../images/FMI_logo.png";
+import { useNavigate } from "react-router-dom";
 
 const MyPageSidebar = ({ activeTab, setActiveTab }) => {
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    navigate(-1); // 이전 페이지로 이동
+  };
+
   return (
     <div className={styles.sidebar}>
-      <div className={styles.logo}>
+      <div
+        className={styles.logo}
+        onClick={handleLogoClick}
+        style={{ cursor: "pointer" }}
+      >
         <img src={logo} alt="Logo" />
       </div>
       <button
@@ -14,7 +25,7 @@ const MyPageSidebar = ({ activeTab, setActiveTab }) => {
         }`}
         onClick={() => setActiveTab("profile")}
       >
-        Edit Profile
+        회원정보 수정
       </button>
       <button
         className={`${styles.sidebarButton} ${
@@ -22,7 +33,7 @@ const MyPageSidebar = ({ activeTab, setActiveTab }) => {
         }`}
         onClick={() => setActiveTab("follow")}
       >
-        Followed Teams
+        팔로우한 팀
       </button>
       <button
         className={`${styles.sidebarButton} ${
@@ -30,7 +41,7 @@ const MyPageSidebar = ({ activeTab, setActiveTab }) => {
         }`}
         onClick={() => setActiveTab("delete")}
       >
-        Delete Account
+        계정 삭제
       </button>
     </div>
   );

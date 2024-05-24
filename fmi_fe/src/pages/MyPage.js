@@ -22,9 +22,11 @@ const MyPage = () => {
   };
 
   return (
-    <div className={styles.mypageContainer}>
-      <MyPageSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-      <div className={styles.contentContainer}>{renderContent()}</div>
+    <div className={styles.container}>
+      <div className={styles.mypageContainer}>
+        <MyPageSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+        <div className={styles.contentContainer}>{renderContent()}</div>
+      </div>
     </div>
   );
 };
