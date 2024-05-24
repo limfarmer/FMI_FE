@@ -69,6 +69,28 @@ body {
   background-color: #e3e4e6;
   color: #2e2c2f;
 }
+/* 기존의 CSS 스타일에 추가 */
+
+.formButton {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.formButton:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+.formButton:active {
+  background-color: #1a5276;
+  transform: translateY(1px);
+}
 
 .contentContainer {
   flex: 1;
@@ -153,17 +175,45 @@ form button:hover {
 @media (max-width: 768px) {
   .mypageContainer {
     flex-direction: column;
+    align-items: center;
   }
 
   .sidebar {
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 10px 0;
+    display: none;
   }
 
   .contentContainer {
+    width: 90%;
     margin-top: 20px;
-    padding: 20px;
   }
+
+  .formButton {
+    width: 100%;
+  }
+
+  .card {
+    width: 90%;
+  }
+}
+
+/* 폼 스타일 */
+.card form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card form label {
+  width: 100%;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.card form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
