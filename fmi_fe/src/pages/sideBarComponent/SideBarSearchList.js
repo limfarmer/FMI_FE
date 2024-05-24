@@ -1,12 +1,11 @@
 import { useState } from "react";
 import FootballApiData from "../../api/FootballApiData";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 /** 검색 결과 list 스타일 */
 const SearchResult = styled.button`
   border: none;
   outline: none;
-  color: black;
   display: inline-block;
   background-color: inherit;
   cursor: pointer;
@@ -14,40 +13,58 @@ const SearchResult = styled.button`
     white-space: nowrap;
   }
 `;
+const spin = keyframes`
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+`;
+
+const LoadingSpinner = styled.div`
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  animation: ${spin} 1s linear infinite;
+  display: inline-block;
+`;
 
 const SearchBarStyle = styled.div`
   width: 100%;
   height: 3%;
   position: fixed;
   top: 1rem;
+  color: black;
   left: 1rem;
 `;
 const Input = styled.input`
-  width: 90%;
+  width: 85%;
   height: 100%;
   border: none;
   outline: none;
   background-color: #f1f1f1;
   padding: 0;
+  padding-left: 14px;
   border-radius: ${(props) =>
     props.value !== "" ? "20px 20px 0px 0px" : "30px "};
   display: inline-block;
   border-bottom: ${(props) => (props.value !== "" ? "0.1px solid" : "0px")};
+  transition: ${(props) => (props.value !== "" ? "0.1px solid" : "0px")};
 `;
 const Ul = styled.ul`
-  display: inline-block;
-  width: 90%;
+  display: ${(props) => (props.showList ? "inline-block" : "none")};
+  width: 85%;
   background-color: #f1f1f1;
   list-style: none;
   border-radius: 0px 0px 20px 20px;
-
   padding: 0;
+  padding-left: 14px;
   margin: 0;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); /* 그림자 추가 */
 `;
 const SideBarSearchList = ({ handleEvent }) => {
   const [inputValue, setInputValue] = useState("");
-  const { teamsArray, playerArray } = FootballApiData(inputValue);
-
+  const { teamsArray, playerArray, loading } = FootballApiData(inputValue);
+  const [isLoading, setIsLoading] = useState(false);
   /**
    * @param {event} event input창에 입력한값을 상태관리하는 handler
    */
@@ -74,10 +91,9 @@ const SideBarSearchList = ({ handleEvent }) => {
       .toLowerCase();
     const trimmedTeamName = player.strTeam.replace(/\s+/g, "").toLowerCase();
 
-    // "_Retired Soccer"와 "_Retired WWE"를 제외
-    const isNotRetired =
-      trimmedTeamName !== "_retiredsoccer" && trimmedTeamName !== "_retiredwwe";
-
+    // "_retiredsoccer""를 제외 (은퇴한 선수들)
+    const isNotRetired = trimmedTeamName !== "_retiredsoccer";
+    // "남자", "축구", "선수" 만 검색하도록 조건문 걸어줌
     if (
       player.strSport === "Soccer" &&
       player.strGender === "Male" &&
@@ -90,45 +106,46 @@ const SideBarSearchList = ({ handleEvent }) => {
   });
 
   return (
-    <>
-      <SearchBarStyle>
-        {/* 인풋 디자인 바꾸기 */}
-        <Input
-          type="text"
-          placeholder="팀이름이나 선수이름 입력하세요."
-          value={inputValue}
-          onChange={handleSearchChange}
-        />
-        <Ul style={{}}>
-          {inputValue && (
-            <>
-              {filteredTeamResult.map((team, index) => (
-                <li key={index}>
-                  <SearchResult onClick={() => handleEvent(team.strTeam)}>
-                    <div>
-                      <img
-                        src={team.strTeamBadge}
-                        alt={`${team.strTeam} badge`}
-                        style={{ width: "24px", height: "24px" }}
-                      />
-                      Team: {team.strTeam}
-                    </div>
-                  </SearchResult>
-                </li>
-              ))}
-              <li>----</li>
-              {filteredPlayerResult.map((player, index) => (
-                <li key={index}>
-                  <SearchResult onClick={() => handleEvent(player.strTeam)}>
-                    <div>Player: {player.strPlayer}</div>
-                  </SearchResult>
-                </li>
-              ))}
-            </>
-          )}
-        </Ul>
-      </SearchBarStyle>
-    </>
+    <SearchBarStyle>
+      <Input
+        type="text"
+        placeholder="팀이름이나 선수이름 입력하세요."
+        value={inputValue}
+        onChange={handleSearchChange}
+      />
+
+      {/* 입력값이 있을 때만 리스트를 표시 */}
+      <Ul showList={inputValue !== ""}>
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            {filteredTeamResult.map((team, index) => (
+              <li key={index}>
+                <SearchResult onClick={() => handleEvent(team.strTeam)}>
+                  <div>
+                    <img
+                      src={team.strTeamBadge}
+                      alt={`${team.strTeam} badge`}
+                      style={{ width: "24px", height: "24px" }}
+                    />
+                    Team: {team.strTeam}
+                  </div>
+                </SearchResult>
+              </li>
+            ))}
+            {filteredPlayerResult.map((player, index) => (
+              <li key={index}>
+                <SearchResult onClick={() => handleEvent(player.strTeam)}>
+                  <div>Player: {player.strPlayer}</div>
+                </SearchResult>
+              </li>
+            ))}
+            <li style={{ paddingBottom: "10px" }}></li>
+          </>
+        )}
+      </Ul>
+    </SearchBarStyle>
   );
 };
 

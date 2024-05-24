@@ -11,6 +11,7 @@ const FooterContainer = styled.footer`
   width: 100%;
   height: 20%;
   bottom: 0;
+  padding-bottom: 10px;
 `;
 
 const FooterTitle = styled.h2`
@@ -40,18 +41,18 @@ const SideBarFooter = () => {
       </FooterText>
       <FooterText>&copy; 2024 FMI. All rights reserved.</FooterText>
       <FooterText>
-        Contact us:{" "}
+        Contact us:
         <FooterLink href="mailto:support@fmi.com">support@fmi.com</FooterLink>
       </FooterText>
       <FooterText>
         Follow us on:
         <FooterLink href="" target="_blank" rel="noopener noreferrer">
           Facebook
-        </FooterLink>{" "}
+        </FooterLink>
         |
         <FooterLink href="" target="_blank" rel="noopener noreferrer">
           Twitter
-        </FooterLink>{" "}
+        </FooterLink>
         |
         <FooterLink href="" target="_blank" rel="noopener noreferrer">
           Instagram

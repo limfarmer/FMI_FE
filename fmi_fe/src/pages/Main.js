@@ -50,7 +50,7 @@ const Main = () => {
       ),
     []
   );
-  
+
   useEffect(() => {
     const imgNum = Math.floor(Math.random() * 8); // 0부터 7까지의 랜덤한 숫자를 생성
     setImageURL(images[imgNum]);

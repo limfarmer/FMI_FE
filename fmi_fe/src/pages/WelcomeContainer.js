@@ -8,7 +8,6 @@ const Member = styled.span`
   width: 100%;
   /* height: 100%; */
 `;
-const Button = styled.div``;
 const WelcomeBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -57,7 +56,7 @@ const WelcomeContainer = () => {
   return (
     <>
       <WelcomeBox>
-        {isLogin ? (
+        {loginId ? (
           <>
             <Member>
               환영합니다! <br />
@@ -68,12 +67,12 @@ const WelcomeContainer = () => {
             </LoginLink>
           </>
         ) : (
-          <Member>
-            환영합니다! 방문자님
-            <Button>
-              <LoginLink to="/login">로그인</LoginLink>
-            </Button>
-          </Member>
+          <>
+            <Member>환영합니다! 방문자님</Member>
+            <LoginLink to="/login">
+              <MainFollowCheckButton>로그인</MainFollowCheckButton>
+            </LoginLink>
+          </>
         )}
       </WelcomeBox>
     </>

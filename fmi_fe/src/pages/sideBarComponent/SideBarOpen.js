@@ -1,10 +1,9 @@
 import SideBar from "./SideBar";
 import SideBarFooter from "./SideBarFooter";
-import { OpenSideBarStyle, BlurDiv } from "../../style/LayoutStyle";
+import { OpenSideBarStyle } from "../../style/LayoutStyle";
 const SideBarOpen = ({ isOpen }) => {
   return (
     <>
-      {/* <BlurDiv></BlurDiv> */}
       <OpenSideBarStyle isOpen={isOpen}>
         <SideBar />
         <SideBarFooter />
