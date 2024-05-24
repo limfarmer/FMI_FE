@@ -1,34 +1,47 @@
-import React, { useEffect, useState } from "react";
-import AxiosApi from "../api/AxiosApi"; // 경로 수정
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import styles from "../style/MyPage.module.css";
 
-const FollowManagement = () => {
-  const [follows, setFollows] = useState([]);
+const FollowManagement = ({ userId }) => {
+  const [followedTeams, setFollowedTeams] = useState([]);
 
   useEffect(() => {
-    AxiosApi.getFollowList()
-      .then((response) => setFollows(response.data))
-      .catch((error) =>
-        console.error("팔로우 목록을 가져오는 중 오류 발생:", error)
-      );
-  }, []);
+    const fetchFollowedTeams = async () => {
+      try {
+        const response = await axios.get("http://localhost:8182/follow/list", {
+          params: { userId: userId },
+        });
+        setFollowedTeams(response.data);
+      } catch (error) {
+        console.error("There was an error fetching the followed teams!", error);
+      }
+    };
+    fetchFollowedTeams();
+  }, [userId]);
 
-  const handleUnfollow = (teamId) => {
-    AxiosApi.unfollowTeam(teamId)
-      .then(() => {
-        setFollows(follows.filter((follow) => follow.teamId !== teamId));
-      })
-      .catch((error) => console.error("팔로우 취소 중 오류 발생:", error));
+  const handleUnfollow = async (teamId) => {
+    try {
+      await axios.delete(`http://localhost:8182/follow/${userId}/${teamId}`);
+      setFollowedTeams(
+        followedTeams.filter((team) => team.teamName !== teamId)
+      );
+    } catch (error) {
+      console.error("There was an error unfollowing the team!", error);
+    }
   };
 
   return (
-    <div>
-      <h1>팔로우 팀 관리</h1>
-      <ul>
-        {follows.map((follow) => (
-          <li key={follow.teamId}>
-            {follow.teamName}
-            <button onClick={() => handleUnfollow(follow.teamId)}>
-              팔로우 취소
+    <div className={styles.card}>
+      <h2 className={styles.heading}>팔로우한 팀</h2>
+      <ul className={styles.followedTeams}>
+        {followedTeams.map((team) => (
+          <li key={team.teamName} className={styles.followedTeamItem}>
+            <span>{team.teamName}</span>
+            <button
+              className={styles.unfollowButton}
+              onClick={() => handleUnfollow(team.teamName)}
+            >
+              언팔로우
             </button>
           </li>
         ))}

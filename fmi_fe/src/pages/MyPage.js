@@ -7,26 +7,25 @@ import styles from "../style/MyPage.module.css";
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState("profile");
+  const userId = "your_user_id"; // 실제 사용자 ID로 대체해야 합니다.
 
   const renderContent = () => {
     switch (activeTab) {
       case "profile":
-        return <EditProfile />;
+        return <EditProfile userId={userId} />;
       case "follow":
-        return <FollowManagement />;
+        return <FollowManagement userId={userId} />;
       case "delete":
-        return <DeleteAccount />;
+        return <DeleteAccount userId={userId} />;
       default:
-        return <EditProfile />;
+        return <EditProfile userId={userId} />;
     }
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.mypageContainer}>
-        <MyPageSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-        <div className={styles.contentContainer}>{renderContent()}</div>
-      </div>
+    <div className={styles.mypageContainer}>
+      <MyPageSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <div className={styles.contentContainer}>{renderContent()}</div>
     </div>
   );
 };
