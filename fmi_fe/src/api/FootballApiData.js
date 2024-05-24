@@ -65,6 +65,9 @@ const FootballApiData = (inputValue) => {
       return {
         strPlayer: player.strPlayer,
         strTeam: player.strTeam,
+        strSport: player.strSport,
+        strGender: player.strGender,
+        strPosition: player.strPosition,
       };
     });
   };
@@ -81,6 +84,7 @@ const FootballApiData = (inputValue) => {
         );
         const transformedData = transformPlayerData(response.data);
         setPlayerArray(transformedData);
+        console.log(playerArray, "api player array");
         setLoading(false);
       } catch (e) {
         setLoading(false);

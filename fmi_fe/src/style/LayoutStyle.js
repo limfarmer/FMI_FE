@@ -6,7 +6,7 @@ export const OpenSideBarStyle = styled.div`
   position: fixed;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   background-color: #333;
   color: white;

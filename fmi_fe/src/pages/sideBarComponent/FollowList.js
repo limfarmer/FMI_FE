@@ -84,7 +84,7 @@ const FollowList = ({ handleClickEvent }) => {
           <TableRow>
             <TableHeaderCell>순위</TableHeaderCell>
             <TableHeaderCell>팀</TableHeaderCell>
-            <TableHeaderCell>?</TableHeaderCell>
+            <TableHeaderCell>수정 체크</TableHeaderCell>
           </TableRow>
           {followList.map((list, index) => (
             <TableRow>
@@ -97,7 +97,7 @@ const FollowList = ({ handleClickEvent }) => {
                   {list.teamName}
                 </FollowListItem>
               </TableCell>
-              <TableCell>-</TableCell>
+              <TableCell>수정</TableCell>
             </TableRow>
           ))}
         </FollowListTable>
