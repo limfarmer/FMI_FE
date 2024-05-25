@@ -9,6 +9,7 @@ const SearchResult = styled.button`
   display: inline-block;
   background-color: inherit;
   cursor: pointer;
+
   & div {
     white-space: nowrap;
   }
@@ -29,34 +30,33 @@ const LoadingSpinner = styled.div`
 `;
 
 const SearchBarStyle = styled.div`
-  width: 100%;
-  height: 3%;
-  position: fixed;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 80%;
+  height: 3.5%;
   top: 1rem;
   color: black;
-  left: 1rem;
 `;
 const Input = styled.input`
-  width: 85%;
-  height: 100%;
   border: none;
   outline: none;
   background-color: #f1f1f1;
-  padding: 0;
-  padding-left: 14px;
+  height: 100%;
+  margin-top: 1.3rem;
+  padding: 10px;
   border-radius: ${(props) =>
     props.value !== "" ? "20px 20px 0px 0px" : "30px "};
-  display: inline-block;
   border-bottom: ${(props) => (props.value !== "" ? "0.1px solid" : "0px")};
   transition: ${(props) => (props.value !== "" ? "0.1px solid" : "0px")};
 `;
 const Ul = styled.ul`
   display: ${(props) => (props.showList ? "inline-block" : "none")};
-  width: 85%;
   background-color: #f1f1f1;
   list-style: none;
   border-radius: 0px 0px 20px 20px;
   padding: 0;
+  z-index: 1;
   padding-left: 14px;
   margin: 0;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); /* 그림자 추가 */

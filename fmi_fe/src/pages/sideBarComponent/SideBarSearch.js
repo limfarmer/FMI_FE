@@ -1,10 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import SideBarSearchList from "./SideBarSearchList";
 import styled from "styled-components";
-const SideBarSearchStyle = styled.div`
-  :nth-child(all) {
-  }
-`;
 /**
  *
  * @returns SideBar
@@ -19,11 +15,9 @@ const SideBarSearch = () => {
   };
 
   return (
-    <SideBarSearchStyle>
-      <SideBarSearchList
-        handleEvent={followListHandleClickEvent}
-      ></SideBarSearchList>
-    </SideBarSearchStyle>
+    <SideBarSearchList
+      handleEvent={followListHandleClickEvent}
+    ></SideBarSearchList>
   );
 };
 

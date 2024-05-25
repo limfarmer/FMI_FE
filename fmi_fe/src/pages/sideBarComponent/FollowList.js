@@ -12,13 +12,12 @@ const FollowListItem = styled.button`
 const FollowListBoxStyle = styled.div`
   background-color: #f1f1f1;
   width: 80%;
-  height: 50%;
+  height: auto;
   margin-left: 5px;
   margin-right: 5px;
 `;
 const FollowListTable = styled.table`
   color: #2e2c2f;
-  width: 100%;
   font-size: 1rem;
 `;
 // 테이블 행 스타일
@@ -53,6 +52,26 @@ const TableCell = styled.td`
   } */
 `;
 const FollowList = ({ handleClickEvent }) => {
+  const dummyList = [
+    { teamName: "Arsenal" },
+    { teamName: "liverpool" },
+    { teamName: "west_ham" },
+    { teamName: "Arsenal" },
+    { teamName: "liverpool" },
+    { teamName: "west_ham" },
+    { teamName: "Arsenal" },
+    { teamName: "liverpool" },
+    { teamName: "west_ham" },
+    { teamName: "Arsenal" },
+    { teamName: "liverpool" },
+    { teamName: "west_ham" },
+    { teamName: "Arsenal" },
+    { teamName: "liverpool" },
+    { teamName: "west_ham" },
+    { teamName: "Arsenal" },
+    { teamName: "liverpool" },
+    { teamName: "west_ham" },
+  ];
   // 로그인 구현이 안돼서 일단 임시로 id입력 받는 코드 구현
   const [dummyId, setDummyId] = useState("");
   const insertDummyId = (e) => {
@@ -63,22 +82,25 @@ const FollowList = ({ handleClickEvent }) => {
   /**
    * 팔로우 리스트 불러오는 useEffect
    */
+  // useEffect(() => {
+  //   const getFollowList = async () => {
+  //     try {
+  //       const response = await AxiosApi.followList(dummyId);
+  //       if (response.data) {
+  //setFollowList(dummyList);
+  //       }
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+  //   getFollowList();
+  // }, [dummyId]);
   useEffect(() => {
-    const getFollowList = async () => {
-      try {
-        const response = await AxiosApi.followList(dummyId);
-        if (response.data) {
-          setFollowList(response.data);
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getFollowList();
+    setFollowList(dummyList);
   }, [dummyId]);
   return (
     <>
-      <input type="text" value="test" onClick={insertDummyId} />
+      {/* <input type="text" value="test" onClick={insertDummyId}  /> */}
       <FollowListBoxStyle>
         <FollowListTable>
           <TableRow>

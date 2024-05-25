@@ -2,17 +2,17 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 // 사이드바 style 파일 만들기!!!!!
 export const SidebarStyle = styled.div``;
-export const OpenSideBarStyle = styled.div`
+export const SideBarContainerStyle = styled.div`
   position: fixed;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background-color: #333;
   color: white;
   top: 0;
   right: 0;
-  height: 1024px;
+  height: 100vh;
   width: 340px;
   transform: ${(props) =>
     props.isOpen ? "translateX(0)" : "translateX(100%)"};
@@ -31,14 +31,16 @@ export const SidebarItem = styled.div``;
 // `;
 
 export const HamburgerButton = styled.button`
-  z-index: 1000;
-  width: 5%;
-  height: 2rem;
+  z-index: 100;
   background-color: transparent;
   border: none;
   cursor: pointer;
-  align-items: center;
-
+  transition: background-color 0.5s ease;
+  border-radius: 50%;
+  height: 100%;
+  &:hover {
+    background-color: #2e2c2f;
+  }
   & div {
     width: 100%;
     height: 3px;
@@ -49,8 +51,8 @@ export const HamburgerButton = styled.button`
 export const StyledLink = styled(Link)`
   text-decoration: none;
   color: inherit;
-
+  transition: color 0.5s ease;
   &:hover {
-    color: #3498db;
+    color: #2e2c2f;
   }
 `;

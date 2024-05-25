@@ -32,6 +32,10 @@ const MainFollowCheckButton = styled.button`
   font-size: 1.5rem;
   font-weight: 700;
   cursor: pointer;
+  transition: color 0.5s ease;
+  &:hover {
+    color: #2e2c2f;
+  }
 `;
 
 const LoginLink = styled(Link)`
