@@ -1,0 +1,114 @@
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2c3e50, #4b79a1);
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+}
+
+.profile-icon {
+  background: #1a1a72;
+  border-radius: 50%;
+  padding: 1.5rem;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.profile-icon svg {
+  fill: #ffffff;
+  width: 60px;
+  height: 60px;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.85rem;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  padding-left: 2.5rem; /* Padding for icon */
+}
+
+.form-group input::placeholder {
+  color: #555555;
+}
+
+.form-group .icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  fill: #1a1a72;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: #ffffff;
+}
+
+.options input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+.error {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+.login-btn {
+  background: #1a1a72;
+  color: #ffffff;
+  padding: 0.85rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  width: 100%;
+  text-transform: uppercase;
+}
+
+.login-btn:hover {
+  background: #00004d;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+}
