@@ -50,7 +50,10 @@ const Main = () => {
       ),
     []
   );
-
+  // localStorage 충돌 방지를 위한 메인
+  // useEffect(() => {
+  //   localStorage.clear();
+  // }, []);
   useEffect(() => {
     const imgNum = Math.floor(Math.random() * 8); // 0부터 7까지의 랜덤한 숫자를 생성
     setImageURL(images[imgNum]);

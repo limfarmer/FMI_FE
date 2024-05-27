@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Member = styled.span`
   font-size: 150%;
@@ -46,29 +46,37 @@ const LoginLink = styled(Link)`
 
 const WelcomeContainer = () => {
   const [isLogin, setIsLogin] = useState(false);
-  localStorage.setItem("login", "임정후"); // 아직 로그인 페이지가 완성 안돼서 임시로 true로 박고 나중에 id값 받아올 예정
-  const loginId = localStorage.getItem("login");
+  const loginId = localStorage.getItem("user");
+
   /**
    * 로그인 상태 관리
    */
   useEffect(() => {
-    if (loginId === "임정후") {
+    console.log(loginId);
+    if (loginId) {
       setIsLogin(true);
     }
   }, [loginId]);
-
+  const navigate = useNavigate();
+  const onClick = () => {
+    localStorage.clear();
+    setIsLogin(false);
+    navigate("/");
+  };
   return (
     <>
       <WelcomeBox>
-        {loginId ? (
+        {isLogin ? (
           <>
             <Member>
               환영합니다! <br />
-              {loginId}님{" "}
+              {/* 아이디에서 "" 제거 */}
+              {loginId.replace(/"/g, "")}님
             </Member>
-            <LoginLink to="/mypage">
-              <MainFollowCheckButton>마이페이지</MainFollowCheckButton>
-            </LoginLink>
+
+            <MainFollowCheckButton onClick={onClick}>
+              로그아웃
+            </MainFollowCheckButton>
           </>
         ) : (
           <>

@@ -9,7 +9,6 @@ export const SideBarContainerStyle = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: #333;
-  color: white;
   top: 0;
   right: 0;
   height: 100vh;

@@ -98,6 +98,7 @@ const SideBarSearchList = ({ handleEvent }) => {
       player.strSport === "Soccer" &&
       player.strGender === "Male" &&
       player.strPosition !== "Manager" &&
+      !/\d/.test(player.strPlayer) &&
       isNotRetired
     ) {
       return trimmedPlayerName.includes(trimmedInputValue);
@@ -120,27 +121,39 @@ const SideBarSearchList = ({ handleEvent }) => {
           <LoadingSpinner />
         ) : (
           <>
-            {filteredTeamResult.map((team, index) => (
-              <li key={index}>
-                <SearchResult onClick={() => handleEvent(team.strTeam)}>
-                  <div>
-                    <img
-                      src={team.strTeamBadge}
-                      alt={`${team.strTeam} badge`}
-                      style={{ width: "24px", height: "24px" }}
-                    />
-                    Team: {team.strTeam}
-                  </div>
-                </SearchResult>
-              </li>
-            ))}
-            {filteredPlayerResult.map((player, index) => (
-              <li key={index}>
-                <SearchResult onClick={() => handleEvent(player.strTeam)}>
-                  <div>Player: {player.strPlayer}</div>
-                </SearchResult>
-              </li>
-            ))}
+            {filteredTeamResult.length > 0 ? (
+              filteredTeamResult.map((team, index) => (
+                <li key={index}>
+                  <SearchResult onClick={() => handleEvent(team.strTeam)}>
+                    <div>
+                      <img
+                        src={team.strTeamBadge}
+                        alt={`${team.strTeam} badge`}
+                        style={{ width: "24px", height: "24px" }}
+                      />
+                      Team: {team.strTeam}
+                    </div>
+                  </SearchResult>
+                </li>
+              ))
+            ) : (
+              <SearchResult>
+                <li>no team result</li>
+              </SearchResult>
+            )}
+            {filteredPlayerResult.length > 0 ? (
+              filteredPlayerResult.map((player, index) => (
+                <li key={index}>
+                  <SearchResult onClick={() => handleEvent(player.strTeam)}>
+                    <div>Player: {player.strPlayer}</div>
+                  </SearchResult>
+                </li>
+              ))
+            ) : (
+              <SearchResult>
+                <li>no player result</li>
+              </SearchResult>
+            )}
             <li style={{ paddingBottom: "10px" }}></li>
           </>
         )}

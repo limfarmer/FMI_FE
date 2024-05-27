@@ -44,7 +44,7 @@ const Layout = () => {
   const onClick = () => {
     forceRerender();
   };
-  const userId = localStorage.getItem("login");
+  const userId = localStorage.getItem("user");
   return (
     <>
       <Container>
