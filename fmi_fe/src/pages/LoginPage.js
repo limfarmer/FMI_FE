@@ -1,8 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { LoginContext } from "../context/LoginContext";
 import "../style/LoginPage.css";
+
+const images = [
+  "/images/deklerk-basson-tV3xTMx7DYE-unsplash.jpg",
+  "/images/joshi-milestoner-Cm5w7fvuQZA-unsplash.jpg",
+  "/images/tim-bechervaise-_hjsopbklZ0-unsplash.jpg",
+  "/images/valentin-kremer-noqQBb1EKkc-unsplash.jpg",
+  "/images/quan-tran-6Kc77imm5YI-unsplash.jpg",
+  "/images/vienna-reyes-Zs_o1IjVPt4-unsplash.jpg",
+];
 
 const LoginPage = () => {
   const [userId, setUserId] = useState("");
@@ -10,6 +19,11 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { setUser } = useContext(LoginContext);
+
+  useEffect(() => {
+    const randomImage = images[Math.floor(Math.random() * images.length)];
+    document.body.style.backgroundImage = `url(${randomImage})`;
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,7 +41,7 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.error("로그인 중 오류 발생!", error);
-      setError("로그인 중 오류 발생");
+      setError("인터넷 에러가 발생했습니다.");
     }
   };
 
@@ -45,7 +59,7 @@ const LoginPage = () => {
           </svg>
           <input
             type="text"
-            placeholder="Email ID"
+            placeholder="User ID"
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
           />
