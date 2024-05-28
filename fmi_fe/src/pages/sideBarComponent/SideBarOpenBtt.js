@@ -18,7 +18,6 @@ const SideBarOpenBtt = () => {
       sidebarRef.current &&
       !sidebarRef.current.contains(event.target)
     ) {
-      // console.log("너니?");
       setIsOpen(false);
     }
   };

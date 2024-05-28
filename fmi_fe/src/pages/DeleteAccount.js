@@ -8,7 +8,7 @@ const DeleteAccount = ({ userId }) => {
       const response = await axios.post(
         "http://localhost:8081/api/users/deactivate", // 서버 주소와 엔드포인트
         {
-          id: userId,
+          userId: userId,
         }
       );
       if (response.data) {

@@ -29,6 +29,13 @@ const ModifyModalStyle = styled.div`
     padding: 0;
   }
   & li {
+    padding: 3px;
+    font-size: 0.8rem;
+  }
+  & :hover {
+    background-color: #333333;
+    border-radius: 10px;
+    color: #f1f1f1;
   }
 `;
 const Btt = styled.button`
@@ -36,9 +43,6 @@ const Btt = styled.button`
   border: none;
   background-color: inherit;
   cursor: pointer;
-  & :hover {
-    background-color: black;
-  }
 `;
 const FollowModifyBtt = ({
   onClick,
@@ -51,7 +55,6 @@ const FollowModifyBtt = ({
 }) => {
   // Modal창 의외의 영역 클릭을 DOM으로 제어하기위해 쓰는 Ref
   const modalRef = useRef(null);
-  console.log(id, "!");
   const [userId, setUserId] = useState("");
 
   useEffect(() => {
@@ -84,36 +87,28 @@ const FollowModifyBtt = ({
   //   };
   //   unfollowTeam();
   // }, [unfollowTeamName]);
-  //
-  const clickDelete = async (teamName, id) => {
-    console.log("id:", userId);
+  const clickTest = async (name) => {
+    console.log(name, "팀이름!");
     try {
       await AxiosApi.unfollowTeam(teamName, userId);
-
-      console.log("팀:", teamName);
+      console.log("Unfollowed:", teamName, "Index:", index);
       onDelete();
     } catch (e) {
       console.log(e);
     }
   };
-  useEffect(() => {
-    console.log("delete");
-  }, []);
   return (
     <>
       <IconStyle onClick={onClick}>
         <FontAwesomeIcon icon={faEllipsisVertical} />
       </IconStyle>
-      <ModifyModalStyle ref={modalRef} isOpen={isOpen}>
+      <ModifyModalStyle
+        ref={modalRef}
+        isOpen={isOpen}
+        onClick={() => clickTest(teamName)}
+      >
         <ul>
-          <li>수정</li>
-          <li>
-            <Btt
-              onClick={() => clickDelete(teamName)} // 각 버튼에 Ref 할당
-            >
-              언팔로우
-            </Btt>
-          </li>
+          <li>언팔로우</li>
         </ul>
       </ModifyModalStyle>
     </>

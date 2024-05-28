@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import styles from "../style/MyPage.module.css";
+import AxiosApi from "../api/AxiosApi";
+import axios from "axios";
 
-const EditProfile = () => {
-  const [user, setUser] = useState({
-    id: "your_user_id", // 실제 사용자 ID를 여기에 설정
-    name: "",
-    email: "",
-    nickname: "",
-  });
+const EditProfile = ({ userId }) => {
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8182/api/users/${user.id}`
-        );
+        // const response = await axios.get(
+        //   `http://localhost:8182/api/users/${user.id}`
+        // );
+        const response = await AxiosApi.getUserInfo(userId);
+        console.log(response.data);
         setUser(response.data);
       } catch (error) {
         console.error("There was an error fetching the user data!", error);
       }
     };
     fetchUser();
-  }, [user.id]);
+  }, [userId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -10,7 +10,7 @@ const TeamDetailPage = () => {
   const [data, setData] = useState([]);
   const [versus, setVersus] = useState([]);
   const [active, setActive] = useState(false);
-
+  const [teamText, setTeamText] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -18,6 +18,7 @@ const TeamDetailPage = () => {
           `https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=${teamName}`
         );
         setData(response.data.teams);
+        setTeamText("팀 연혁");
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -134,7 +135,7 @@ const TeamDetailPage = () => {
 
       <section className="section">
         <div className="content">
-          <h2>팀연혁</h2>
+          <h2>{teamText}</h2>
           <p>{data[0] && data[0].strDescriptionEN}</p>
         </div>
       </section>

@@ -16,6 +16,8 @@ export const SideBarContainerStyle = styled.div`
   transform: ${(props) =>
     props.isOpen ? "translateX(0)" : "translateX(100%)"};
   transition: transform 0.4s ease-in-out;
+  @media (max-width: 768px) {
+  }
 `;
 export const BlurDiv = styled.div``;
 export const SidebarItem = styled.div``;

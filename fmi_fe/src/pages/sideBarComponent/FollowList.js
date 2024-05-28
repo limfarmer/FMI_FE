@@ -17,7 +17,9 @@ const FollowListBoxStyle = styled.div`
   margin-left: 5px;
   margin-right: 5px;
   border-radius: 10px 10px 10px 10px;
-  overflow-y: ${(props) => (props.id ? "scroll" : "none")};
+  overflow-y: ${(props) =>
+    (props.id ? "scroll" : "none") &&
+    (props.followList === null ? "scroll" : "none")};
   /* 스크롤 디자인 */
   &::-webkit-scrollbar {
     width: 12px;
@@ -39,6 +41,9 @@ const FollowListBoxStyle = styled.div`
 
   &::-webkit-scrollbar-thumb:hover {
     background-color: #000;
+  }
+  @media (max-width: 768px) {
+    height: 50%;
   }
 `;
 const FollowListTable = styled.table`
@@ -78,11 +83,33 @@ const TableCell = styled.td`
 
 // 수정 버튼 토글 스타일
 const NoneUserFollowBox = styled.div`
+  background-color: rgba(0, 0, 0, 0.3); /* 반투명 배경 색상 */
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
+  color: #333333;
+`;
+const NoneFollowBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const TextBox = styled.div`
+  font-size: 14px;
+  width: 50%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 18px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
 `;
 const FollowList = ({ handleClickEvent }) => {
   const [followList, setFollowList] = useState([]);
@@ -122,44 +149,53 @@ const FollowList = ({ handleClickEvent }) => {
 
   return (
     <>
-      <FollowListBoxStyle id={id}>
+      <FollowListBoxStyle id={id} followList={followList}>
         {id ? (
-          <FollowListTable>
-            <TableRow>
-              <TableHeaderCell>순위</TableHeaderCell>
-              <TableHeaderCell>팀</TableHeaderCell>
-              <TableHeaderCell>
-                <>수정</>
-              </TableHeaderCell>
-            </TableRow>
-            {followList.map((list, index) => (
+          followList !== null ? (
+            <FollowListTable>
               <TableRow>
-                <TableCell>{index + 1}</TableCell>
-                <TableCell>
-                  <FollowListItem
-                    onClick={() => handleClickEvent(list.teamName)}
-                    key={index}
-                  >
-                    {list.teamName}
-                  </FollowListItem>
-                </TableCell>
-                <TableCell>
-                  {/* 팔로우 리스트 수정버튼 */}
-                  <FollowModifyBtt
-                    onClick={() => openModal(index)}
-                    isOpen={openModalIndex === index}
-                    closeModal={() => setOpenModalIndex(null)}
-                    teamName={list.teamName}
-                    index={index + 1}
-                    id={id}
-                    onDelete={() => setIsDelete(!isDelete)}
-                  />
-                </TableCell>
+                <TableHeaderCell>순위</TableHeaderCell>
+                <TableHeaderCell>팀</TableHeaderCell>
+                <TableHeaderCell>
+                  <>수정</>
+                </TableHeaderCell>
               </TableRow>
-            ))}
-          </FollowListTable>
+              {followList.map((list, index) => (
+                <TableRow key={index}>
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>
+                    <FollowListItem
+                      onClick={() => handleClickEvent(list.teamName)}
+                    >
+                      {list.teamName}
+                    </FollowListItem>
+                  </TableCell>
+                  <TableCell>
+                    {/* 팔로우 리스트 수정버튼 */}
+                    <FollowModifyBtt
+                      onClick={() => openModal(index)}
+                      isOpen={openModalIndex === index}
+                      closeModal={() => setOpenModalIndex(null)}
+                      teamName={list.teamName}
+                      index={index}
+                      id={id}
+                      onDelete={() => setIsDelete(!isDelete)}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </FollowListTable>
+          ) : (
+            <NoneFollowBox>팔로우 리스트가 없습니다.</NoneFollowBox>
+          )
         ) : (
-          <NoneUserFollowBox>로그인하기</NoneUserFollowBox>
+          <NoneUserFollowBox>
+            <TextBox>
+              로그인후
+              <br />
+              팔로우 하기
+            </TextBox>
+          </NoneUserFollowBox>
         )}
       </FollowListBoxStyle>
     </>

@@ -3,10 +3,10 @@ const FMI_DOMAIN = "http://localhost:8182";
 
 const AxiosApi = {
   followList: async (userId) => {
-    return await axios.get(FMI_DOMAIN + `/follow/list?userId=${userId}`);
+    return await axios.get(FMI_DOMAIN + `/mypage/follow?userId=${userId}`);
   },
-  getUserInfo: async () => {
-    return await axios.get(FMI_DOMAIN + `/mypage/user`);
+  getUserInfo: async (userId) => {
+    return await axios.get(FMI_DOMAIN + `/mypage/user/${userId}`);
   },
   updateUserInfo: async (user) => {
     return await axios.put(FMI_DOMAIN + `/mypage/user`, user);

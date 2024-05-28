@@ -10,11 +10,11 @@ const MyPage = () => {
   const [userId, setUserId] = useState("");
 
   useEffect(() => {
-    const storedUserId = localStorage.getItem("userId");
+    const storedUserId = localStorage.getItem("user");
     if (storedUserId) {
-      setUserId(storedUserId);
+      setUserId(storedUserId.replace(/"/g, ""));
     }
-  }, []);
+  }, [userId]);
 
   const renderContent = () => {
     switch (activeTab) {

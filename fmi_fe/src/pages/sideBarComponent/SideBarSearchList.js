@@ -49,6 +49,13 @@ const Input = styled.input`
     props.value !== "" ? "20px 20px 0px 0px" : "30px "};
   border-bottom: ${(props) => (props.value !== "" ? "0.1px solid" : "0px")};
   transition: ${(props) => (props.value !== "" ? "0.1px solid" : "0px")};
+  &::placeholder {
+    font-size: 0.8rem;
+  }
+  &:hover {
+    font-weight: bold;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 1);
+  }
 `;
 const Ul = styled.ul`
   display: ${(props) => (props.showList ? "inline-block" : "none")};
@@ -110,7 +117,7 @@ const SideBarSearchList = ({ handleEvent }) => {
     <SearchBarStyle>
       <Input
         type="text"
-        placeholder="팀이름이나 선수이름 입력하세요."
+        placeholder="팔로우할 팀이름이나 선수이름 입력하세요."
         value={inputValue}
         onChange={handleSearchChange}
       />

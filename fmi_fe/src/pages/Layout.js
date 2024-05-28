@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { Outlet } from "react-router-dom"; // 자식 컴포넌트를 특정영역에 포함시키는 것
+import { Outlet } from "react-router-dom";
 import SideBarOpenBtt from "./sideBarComponent/SideBarOpenBtt";
-import { StyledLink } from "../style/LayoutStyle";
 import FMI_logo from "../images/FMI_logo.png";
 import { useState } from "react";
+import HeaderMenu from "./HeaderMenu"; // 새로 만든 HeaderMenu 컴포넌트를 임포트
+
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -32,11 +33,11 @@ const HeaderMenuStyle = styled.div`
   justify-content: space-evenly;
   width: 100%;
   color: #e9e9ea;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 const Layout = () => {
-  /**
-   * HOME 버튼 눌렀을때 재 랜더링
-   */
   const [isKey, setIsKey] = useState(false);
   const forceRerender = () => {
     setIsKey(!isKey);
@@ -51,16 +52,10 @@ const Layout = () => {
         <HeaderStyle>
           <img src={FMI_logo} alt="FMI_logo" />
           <HeaderMenuStyle>
-            <StyledLink to="/" onClick={onClick}>
-              HOME
-            </StyledLink>
-            <StyledLink to="/">ABOUT US</StyledLink>
-            <StyledLink to="/">CONTACT</StyledLink>
-            {userId && <StyledLink to="/mypage">MY PAGE</StyledLink>}
+            <HeaderMenu onClick={onClick} userId={userId} />
           </HeaderMenuStyle>
-          <SideBarOpenBtt></SideBarOpenBtt>
+          <SideBarOpenBtt />
         </HeaderStyle>
-        {/* key는 react에서 제공하는 고유식별자 변경 추가 삭제를 식별하는데 사용 */}
         <main key={isKey}>
           <Outlet />
         </main>
