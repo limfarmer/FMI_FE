@@ -24,7 +24,7 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const [backgroundImage, setBackgroundImage] = useState(getRandomImage());
   const navigate = useNavigate();
-  const { setUser } = useContext(LoginContext);
+  const { login } = useContext(LoginContext);
 
   useEffect(() => {
     const randomImage = getRandomImage();
@@ -39,7 +39,7 @@ const LoginPage = () => {
         pw: password,
       });
       if (response.data) {
-        setUser(userId);
+        login(userId);
         alert("로그인 성공");
         navigate("/");
       } else {

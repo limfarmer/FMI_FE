@@ -14,8 +14,10 @@ const AxiosApi = {
   getFollowList: async () => {
     return await axios.get(FMI_DOMAIN + `/mypage/follow`);
   },
-  unfollowTeam: async (teamId) => {
-    return await axios.delete(FMI_DOMAIN + `/mypage/follow/${teamId}`);
+  unfollowTeam: async (teamId, userId) => {
+    return await axios.delete(
+      FMI_DOMAIN + `/mypage/follow/${teamId},${userId}`
+    );
   },
   deleteUser: async () => {
     return await axios.delete(FMI_DOMAIN + `/mypage/user`);
