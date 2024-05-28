@@ -1,0 +1,152 @@
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  background-color: #111;
+  color: #fff;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.detail-page {
+  position: relative;
+}
+
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section .content {
+  text-align: center;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+}
+
+.follow-btn {
+  width: 50px;
+  height: 45px;
+  background-color: gray;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  transform: rotate(-45deg);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.follow-btn::before,
+.follow-btn::after {
+  content: "";
+  width: 50px;
+  height: 45px;
+  background-color: gray;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.follow-btn::before {
+  top: -25px;
+  left: 0;
+}
+
+.follow-btn::after {
+  top: 0;
+  left: 25px;
+}
+
+.follow-btn.active {
+  background-color: red;
+}
+
+.follow-btn.active::before,
+.follow-btn.active::after {
+  background-color: red;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+a {
+  color: #1e90ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Scrollbar */
+body::-webkit-scrollbar {
+  width: 0.4em;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+@media (max-width: 768px) {
+  .section {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .logo {
+    width: 200px;
+    height: 200px;
+  }
+
+  .follow-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .follow-btn::before,
+  .follow-btn::after {
+    width: 40px;
+    height: 40px;
+  }
+
+  .follow-btn::before {
+    top: -20px;
+    left: 0;
+  }
+
+  .follow-btn::after {
+    top: 0;
+    left: 20px;
+  }
+}

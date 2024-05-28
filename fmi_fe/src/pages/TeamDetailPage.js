@@ -1,157 +1,21 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import "./TeamDetailPage.css";
+
 const FMI_DOMAIN = "http://localhost:8182";
 
-const FollowBtn = styled.div`
-  /*팔로우버튼 스타일 */
-  .FollowBtn {
-    width: 50px;
-    height: 45px;
-    background-color: ${(props) => (props.active ? "red" : "gray")};
-    position: relative;
-    transform: rotate(-45deg);
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    position: absolute;
-    bottom: 50px;
-    right: 50px;
-  }
-
-  .FollowBtn::before,
-  .FollowBtn::after {
-    content: "";
-    width: 50px;
-    height: 45px;
-    background-color: ${(props) => (props.active ? "red" : "gray")};
-    border-radius: 50%;
-    position: absolute;
-  }
-
-  .FollowBtn::before {
-    top: -25px;
-    left: 0;
-  }
-
-  .FollowBtn::after {
-    top: 0;
-    left: 25px;
-  }
-`;
-
-const DetailStyle = styled.div`
-  /* 상세페이지 전체적인 스타일 */
-  display: flex;
-  overflow: hidden;
-  flex-direction: column;
-  align-items: center;
-  color: #2e2c2f;
-
-  > * {
-    min-height: 924px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    justify-content: center;
-    font-size: 30px;
-    font-weight: lighter;
-    width: 100%;
-  }
-  /* 768px 밑이면 모바일화면임 */
-  @media screen and (max-width: 768px) {
-    > * {
-      flex-wrap: wrap;
-    }
-  }
-  > :nth-child(1) {
-    /**section 1 */
-    background-color: #e9eae8;
-    display: flex;
-    flex-direction: column;
-    font-size: 50px;
-    font-weight: lighter;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  > :nth-child(2) {
-    /*section2*/
-    background-color: #e3e4e6;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-
-  > :nth-child(3) {
-    /*section3*/
-    background-color: #e9eae8;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  > :nth-child(4) {
-    /*section4*/
-    background-color: #e3e4e6;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  > :nth-child(5) {
-    /*section5*/
-    background-color: #e9eae8;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  li {
-    list-style-type: none;
-  }
-  a {
-    text-decoration-line: none;
-    text-decoration: none;
-    color: #2e2c2f;
-  }
-  a:hover {
-    color: purple;
-  }
-`;
-
-const LogoContainer = styled.div`
-  /*로고 컨테이너  */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Logo = styled.div`
-  /*로고 스타일*/
-  width: 400px;
-  height: 400px;
-  justify-content: center;
-  background-image: ${({ image }) => `url(${image})`};
-  background-size: cover;
-  background-position: center;
-`;
-
-const VsDateStyle = styled.div`
-  ul {
-    column-count: 2; /* 세로로 두 줄로 만듭니다. */
-  }
-`;
-
 const TeamDetailPage = () => {
-  /*전체상세페이지*/
   const { teamName } = useParams();
-  const [data, setData] = useState([]); /*1번에서 선언 */
-  const [loading, setLoading] = useState(false); /*4번에서 선언 */
-  const [versus, setVersus] = useState([]); /*3번에서 선언 */
-  const [awayTeams, setAwayTeams] = useState([]); /*4번에서 선언 */
-  const [active, setActive] = useState(false); /*2번에서 선언 */
+  const [data, setData] = useState([]);
+  const [versus, setVersus] = useState([]);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      /* teamname받아서 해당 팀의 정보를 받아오는 코드입니다  1번 */
       try {
         const response = await axios.get(
-          "https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=" +
-            teamName
+          `https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=${teamName}`
         );
         setData(response.data.teams);
       } catch (error) {
@@ -164,25 +28,26 @@ const TeamDetailPage = () => {
   }, [teamName]);
 
   const FBtnClick = async () => {
-    /** 팔로우 쏴주는 버튼 이 코드 디버깅 해야됨 아직 테스트안함 */
-    //팔로우팀 추가&삭제하는 코드입니다.  2번
     setActive((prevState) => !prevState);
-    const userId = "userId";
-    if (!active) {
-      return await axios.get(
-        FMI_DOMAIN + `/followupdate/insert/${(userId, teamName)}`
-      );
-    } else {
-      return await axios.delete(
-        FMI_DOMAIN + `/followupdate/delete/${(userId, teamName)}`
-      );
+    const userId = "test";
+    try {
+      if (active) {
+        await axios.delete(
+          `${FMI_DOMAIN}/followupdate/delete/${userId}/${teamName}`
+        );
+      } else {
+        await axios.get(
+          `${FMI_DOMAIN}/followupdate/insert/${userId}/${teamName}`
+        );
+      }
+    } catch (error) {
+      console.error("Error updating follow status:", error);
     }
   };
 
   const versusData = (data) => {
-    /* 2023-2024시즌만 뽑아주는 코드입니다  */
     if (!data || !data.event) {
-      return []; // 데이터가 없는 경우 빈 배열 반환
+      return [];
     }
     return data.event
       .map((away) => {
@@ -191,28 +56,25 @@ const TeamDetailPage = () => {
             strEvent: away.strEvent,
             dateEvent: away.dateEvent,
           };
-        } else {
-          return null;
         }
+        return null;
       })
       .filter((item) => item !== null);
   };
 
   useEffect(() => {
-    /* 첫번째 api에서 전체 경기리스트 뽑아내고 두번째 api에서 내팔로우팀과 awayTeam경기 리스트 뽑기 3번 */
     const vs = async () => {
       try {
         const awayTeamsResponse = await axios.get(
-          `https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?l=English%20Premier%20League` /*첫번째api입니다 */
+          `https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?l=English%20Premier%20League`
         );
         const awayTeams = awayTeamsResponse.data.teams.map(
           (team) => team.strTeam
         );
         const versusDataArray = await Promise.all(
-          /*2차원 배열을 1차원으로 바꿔주는 거라는데 잘모르겠음... */
           awayTeams.map(async (awayTeam) => {
             const response = await axios.get(
-              `https://www.thesportsdb.com/api/v1/json/3/searchevents.php?e=${teamName}_vs_${awayTeam}` /*두번째api입니다 */
+              `https://www.thesportsdb.com/api/v1/json/3/searchevents.php?e=${teamName}_vs_${awayTeam}`
             );
             return versusData(response.data);
           })
@@ -220,124 +82,134 @@ const TeamDetailPage = () => {
         const flattenedVersusData = versusDataArray.flat();
         setVersus(flattenedVersusData);
       } catch (error) {
-        console.error("error", error);
+        console.error("Error fetching versus data:", error);
       }
     };
     vs();
   }, [teamName]);
 
-  useEffect(() => {
-    /* 전체경기일정api중에서 awayteam을 받아오는코드입니다  4번*/
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?l=English%20Premier%20League`
-        );
-        const transformedData = transformData(response.data);
-        console.log(transformedData, "!");
-        setAwayTeams(transformedData);
-        setLoading(false);
-      } catch (e) {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
-
-  const transformData = (data) => {
-    /*4번에서 뽑은 데이터중에 팀뽑아내기 */
-    return data.teams.map((team) => {
-      return {
-        strTeam: team.strTeam,
-      };
-    });
-  };
-
   const sortedVersus = versus.sort(
-    /*경기일정을 최근 날짜순으로 내림차순 해주는 코드입니다*/
     (a, b) => new Date(b.dateEvent) - new Date(a.dateEvent)
   );
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          } else {
+            entry.target.classList.remove("visible");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const sections = document.querySelectorAll(".section");
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
+
+    return () => {
+      sections.forEach((section) => {
+        observer.unobserve(section);
+      });
+    };
+  }, []);
+
   return (
-    <DetailStyle>
-      <section1>
-        {data &&
-          data.map((data, index) => (
-            <div key={index}>
-              <LogoContainer>
-                <Logo image={data.strTeamBadge} />{" "}
-                <div>{data.strAlternate}</div>
-                <FollowBtn active={active} onClick={FBtnClick}>
-                  <button className="FollowBtn"></button>
-                </FollowBtn>
-              </LogoContainer>
-            </div>
-          ))}
-      </section1>
+    <div className="detail-page">
+      {data.length > 0 && (
+        <section className="section">
+          <div className="content logo-container">
+            <div
+              className="logo"
+              style={{ backgroundImage: `url(${data[0].strTeamBadge})` }}
+            />
+            <div>{data[0].strAlternate}</div>
+          </div>
+        </section>
+      )}
 
-      <section2>
-        <div>
+      <section className="section">
+        <div className="content">
           <h2>팀연혁</h2>
-          {data[0] && data[0].strDescriptionEN}
+          <p>{data[0] && data[0].strDescriptionEN}</p>
         </div>
-      </section2>
+      </section>
 
-      <section3>
-        <VsDateStyle>
+      <section className="section">
+        <div className="content">
           <h2>경기일정</h2>
           <ul>
             {versus &&
               sortedVersus.map((versusItem, index) => (
-                <li className="vsdate" key={index}>
-                  <div>
-                    {versusItem.strEvent} : {versusItem.dateEvent}
-                  </div>
+                <li key={index}>
+                  {versusItem.strEvent} : {versusItem.dateEvent}
                 </li>
               ))}
           </ul>
-        </VsDateStyle>
-      </section3>
-
-      <section4>
-        <div>
-          <h2>홈구장</h2>
-          {data[0] && data[0].strStadiumDescription}
         </div>
-      </section4>
+      </section>
 
-      <section5>
-        <VsDateStyle>
-          <div>
+      <section className="section">
+        <div className="content">
+          <h2>홈구장</h2>
+          <p>{data[0] && data[0].strStadiumDescription}</p>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="content">
+          <h2>웹사이트 및 소셜미디어</h2>
+          <p>
             웹사이트:{" "}
-            <a href={data[0] && `http://${data[0].strWebsite}`} target="blank">
+            <a
+              href={data[0] && `http://${data[0].strWebsite}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {data[0] && data[0].strWebsite}
             </a>
-          </div>
-          <div>
+          </p>
+          <p>
             페이스북:{" "}
-            <a href={data[0] && `http://${data[0].strFacebook}`} target="blank">
+            <a
+              href={data[0] && `http://${data[0].strFacebook}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {data[0] && data[0].strFacebook}
             </a>
-          </div>
-          <div>
-            {" "}
+          </p>
+          <p>
             트위터:{" "}
-            <a href={data[0] && `http://${data[0].strTwitter}`} target="blank">
+            <a
+              href={data[0] && `http://${data[0].strTwitter}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {data[0] && data[0].strTwitter}
             </a>
-          </div>
-          <div>
+          </p>
+          <p>
             인스타그램:{" "}
             <a
               href={data[0] && `http://${data[0].strInstagram}`}
-              target="blank"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               {data[0] && data[0].strInstagram}
-            </a>{" "}
-          </div>
-        </VsDateStyle>
-      </section5>
-    </DetailStyle>
+            </a>
+          </p>
+        </div>
+      </section>
+      <div
+        className={`follow-btn ${active ? "active" : ""}`}
+        onClick={FBtnClick}
+      ></div>
+    </div>
   );
 };
 
