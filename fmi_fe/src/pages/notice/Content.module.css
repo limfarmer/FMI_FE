@@ -1,0 +1,25 @@
+.box {
+  margin: 10px 0;
+}
+
+.table {
+  padding: 20px;
+}
+
+.text {
+  width: 660px;
+  font-size: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.date {
+  padding-top: 5px;
+  color: gray;
+  font-size: 13px;
+}
+
+.content {
+  font-size: 15px;
+  padding-top: 20px;
+}
