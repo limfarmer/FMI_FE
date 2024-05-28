@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical, faL } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
 import AxiosApi from "../../api/AxiosApi";
@@ -40,9 +40,23 @@ const Btt = styled.button`
     background-color: black;
   }
 `;
-const FollowModifyBtt = ({ onClick, isOpen, closeModal, teamName, index }) => {
+const FollowModifyBtt = ({
+  onClick,
+  isOpen,
+  closeModal,
+  teamName,
+  index,
+  id,
+  onDelete,
+}) => {
   // Modal창 의외의 영역 클릭을 DOM으로 제어하기위해 쓰는 Ref
   const modalRef = useRef(null);
+  console.log(id, "!");
+  const [userId, setUserId] = useState("");
+
+  useEffect(() => {
+    setUserId(id);
+  }, []);
   useEffect(() => {
     const handleClickOutside = (event) => {
       // modalRef.current은 형재 클릭한 모달창을 의미( 모달창이 열려있는지 확인/ null이 아닌경우 )
@@ -71,16 +85,20 @@ const FollowModifyBtt = ({ onClick, isOpen, closeModal, teamName, index }) => {
   //   unfollowTeam();
   // }, [unfollowTeamName]);
   //
-
-  const clickDelete = async (teamName) => {
+  const clickDelete = async (teamName, id) => {
+    console.log("id:", userId);
     try {
-      await AxiosApi.unfollowTeam(teamName);
-      console.log("Unfollowed:", teamName);
+      await AxiosApi.unfollowTeam(teamName, userId);
+
+      console.log("팀:", teamName);
+      onDelete();
     } catch (e) {
       console.log(e);
     }
   };
-
+  useEffect(() => {
+    console.log("delete");
+  }, []);
   return (
     <>
       <IconStyle onClick={onClick}>

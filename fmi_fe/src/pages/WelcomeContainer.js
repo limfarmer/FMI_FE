@@ -61,6 +61,7 @@ const WelcomeContainer = () => {
   const onClick = () => {
     localStorage.clear();
     setIsLogin(false);
+    alert("로그아웃!");
     navigate("/");
   };
   return (
@@ -73,10 +74,11 @@ const WelcomeContainer = () => {
               {/* 아이디에서 "" 제거 */}
               {loginId.replace(/"/g, "")}님
             </Member>
-
-            <MainFollowCheckButton onClick={onClick}>
-              로그아웃
-            </MainFollowCheckButton>
+            <LoginLink>
+              <MainFollowCheckButton onClick={onClick}>
+                로그아웃
+              </MainFollowCheckButton>
+            </LoginLink>
           </>
         ) : (
           <>

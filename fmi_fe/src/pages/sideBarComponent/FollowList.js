@@ -17,7 +17,7 @@ const FollowListBoxStyle = styled.div`
   margin-left: 5px;
   margin-right: 5px;
   border-radius: 10px 10px 10px 10px;
-  overflow-y: scroll;
+  overflow-y: ${(props) => (props.id ? "scroll" : "none")};
   /* 스크롤 디자인 */
   &::-webkit-scrollbar {
     width: 12px;
@@ -58,7 +58,7 @@ const TableRow = styled.tr`
 const TableHeaderCell = styled.th`
   font-size: 13px;
   &:nth-child(1) {
-    width: 10%;
+    width: 12%;
   }
   &:nth-child(2) {
     width: 80%;
@@ -77,18 +77,23 @@ const TableCell = styled.td`
 // 아이콘 hover 스타일
 
 // 수정 버튼 토글 스타일
-const NoneUserFollowBox = styled.div``;
+const NoneUserFollowBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const FollowList = ({ handleClickEvent }) => {
   const [followList, setFollowList] = useState([]);
   // 열려있는 모달의 인덱스 번호를 받아 on/off의 상태를 관리하는 hook
   const [openModalIndex, setOpenModalIndex] = useState(null);
-
+  const [isDelete, setIsDelete] = useState(false);
   const id = localStorage.getItem("user");
   /**
    * 팔로우 리스트 불러오는 useEffect
    */
   useEffect(() => {
-    console.log(id);
     const getFollowList = async () => {
       try {
         const response = await AxiosApi.followList(id.replace(/"/g, ""));
@@ -100,7 +105,7 @@ const FollowList = ({ handleClickEvent }) => {
       }
     };
     getFollowList();
-  }, [id]);
+  }, [id, isDelete]);
   /**
    *
    * @param {index} index 클릭한 리스트의 index번호를 parma으로 받음
@@ -117,7 +122,7 @@ const FollowList = ({ handleClickEvent }) => {
 
   return (
     <>
-      <FollowListBoxStyle>
+      <FollowListBoxStyle id={id}>
         {id ? (
           <FollowListTable>
             <TableRow>
@@ -146,6 +151,8 @@ const FollowList = ({ handleClickEvent }) => {
                     closeModal={() => setOpenModalIndex(null)}
                     teamName={list.teamName}
                     index={index + 1}
+                    id={id}
+                    onDelete={() => setIsDelete(!isDelete)}
                   />
                 </TableCell>
               </TableRow>
