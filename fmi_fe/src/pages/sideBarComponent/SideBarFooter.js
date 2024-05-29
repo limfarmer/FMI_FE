@@ -39,11 +39,11 @@ const SideBarFooter = () => {
       </FooterText>
       <FooterText>&copy; 2024 FMI. All rights reserved.</FooterText>
       <FooterText>
-        Contact us:
+        Contact us :
         <FooterLink href="mailto:support@fmi.com">support@fmi.com</FooterLink>
       </FooterText>
       <FooterText>
-        Follow us on:
+        Follow us on :
         <FooterLink href="" target="_blank" rel="noopener noreferrer">
           Facebook
         </FooterLink>

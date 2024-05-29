@@ -75,7 +75,7 @@ const FindIdPage = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          {userId && <div className="success">당신의 아이디: {userId}</div>}
+          {userId && <div className="success">당신의 아이디 : {userId}</div>}
           {error && <div className="error">{error}</div>}
           <button type="submit" className="find-btn">
             아이디 찾기

@@ -117,7 +117,7 @@ const SideBarSearchList = ({ handleEvent }) => {
     <SearchBarStyle>
       <Input
         type="text"
-        placeholder="팔로우할 팀이름이나 선수이름 입력하세요."
+        placeholder="팔로우할 팀 이름이나 선수 이름"
         value={inputValue}
         onChange={handleSearchChange}
       />

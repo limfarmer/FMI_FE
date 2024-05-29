@@ -85,7 +85,7 @@ const LoginPage = () => {
           </button>
         </form>
         <div className="options">
-          <a href="/signup">회원가입 하시겠습니까?</a>
+          <a href="/signup">회원가입</a>
           <a href="/find-id">아이디 찾기</a>
           <a href="/find-password">비밀번호 찾기</a>
         </div>

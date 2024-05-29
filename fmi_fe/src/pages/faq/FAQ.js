@@ -37,7 +37,8 @@ const qnaList = [
   {
     category: "category3",
     question: "API 소개",
-    answer: "로그인을 해서 오픈 API로 제공되는 정보를 볼 수 있습니다.",
+    answer:
+      "오픈 API로 제공되는 정보를 볼 수 있으며 로그인 하면 팔로우를 한 팀의 정보를 보게 됩니다.",
   },
   {
     category: "category1",

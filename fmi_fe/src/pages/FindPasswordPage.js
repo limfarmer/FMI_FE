@@ -76,7 +76,7 @@ const FindPasswordPage = () => {
             />
           </div>
           {password && (
-            <div className="success">당신의 비밀번호: {password}</div>
+            <div className="success">당신의 비밀번호 : {password}</div>
           )}
           {error && <div className="error">{error}</div>}
           <button type="submit" className="find-btn">

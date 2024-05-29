@@ -13,7 +13,6 @@ const TeamDetailPage = () => {
   const [teamText, setTeamText] = useState("");
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -155,7 +154,7 @@ const TeamDetailPage = () => {
 
       <section className="section">
         <div className="content">
-          <h2>경기일정</h2>
+          <h2>경기 일정</h2>
           <ul>
             {versus &&
               sortedVersus.map((versusItem, index) => (
@@ -178,7 +177,7 @@ const TeamDetailPage = () => {
         <div className="content">
           <h2>웹사이트 및 소셜미디어</h2>
           <p>
-            웹사이트:{" "}
+            웹사이트 :{" "}
             <a
               href={data[0] && `http://${data[0].strWebsite}`}
               target="_blank"
@@ -188,7 +187,7 @@ const TeamDetailPage = () => {
             </a>
           </p>
           <p>
-            페이스북:{" "}
+            페이스북 :{" "}
             <a
               href={data[0] && `http://${data[0].strFacebook}`}
               target="_blank"
@@ -198,7 +197,7 @@ const TeamDetailPage = () => {
             </a>
           </p>
           <p>
-            트위터:{" "}
+            트위터 :{" "}
             <a
               href={data[0] && `http://${data[0].strTwitter}`}
               target="_blank"
@@ -208,7 +207,7 @@ const TeamDetailPage = () => {
             </a>
           </p>
           <p>
-            인스타그램:{" "}
+            인스타그램 :{" "}
             <a
               href={data[0] && `http://${data[0].strInstagram}`}
               target="_blank"
