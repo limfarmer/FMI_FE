@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import "../style/CategoryFilterStyle.css";
+import "./CategoryFilterStyle.css";
 
 const LS_KEY_CATEGORY = "LS_KEY_CATEGORY";
 

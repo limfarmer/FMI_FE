@@ -1,4 +1,4 @@
-import styles from "./Layout.module.css";
+import styles from "./NoticeLayout.module.css";
 
 function NoticeLayout({ children }) {
   return (

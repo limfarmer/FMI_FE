@@ -7,8 +7,8 @@ const HeaderMenu = ({ onClick, userId }) => {
       <StyledLink to="/" onClick={onClick}>
         HOME
       </StyledLink>
-      <StyledLink to="/">ABOUT US</StyledLink>
-      <StyledLink to="/">CONTACT</StyledLink>
+      <StyledLink to="/notice">NOTICE</StyledLink>
+      <StyledLink to="/faq">FAQ</StyledLink>
       {userId && <StyledLink to="/mypage">MY PAGE</StyledLink>}
     </>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CategoryFilter from "./CategoryFilter";
 
-import "../style/FaqStyle.css";
+import "./FaqStyle.css";
 
 const categories = [
   {
@@ -62,11 +62,11 @@ const FAQ = () => {
   const [cardOnOff, setCardOnOff] = useState(qnaList);
   const [showList, setShowList] = useState(qnaList);
 
-  const getQnACard = (item, index) => {
+  const getQnA = (item, index) => {
     return (
       <div className="faq-card" key={index}>
         <div
-          className="faq-card-title"
+          className="faq-title"
           onClick={() => {
             let tempCard = cardOnOff;
             tempCard[index].show = !tempCard[index].show;
@@ -78,13 +78,11 @@ const FAQ = () => {
         </div>
         <div
           className={
-            qnaList[index].show
-              ? "faq-card-answer"
-              : "faq-card-answer faq-card-none"
+            qnaList[index].show ? "faq-answer" : "faq-answer faq-card-none"
           }
         >
           <span className="answer-mark">A. </span>
-          <span className="FAQ-card-answer">{item.answer}</span>
+          <span className="FAQ-answer">{item.answer}</span>
         </div>
       </div>
     );
@@ -102,15 +100,14 @@ const FAQ = () => {
 
   return (
     <div>
-      <div></div>
       <CategoryFilter
         categories={categories}
         category={category}
         setCatecory={setCatecory}
       />
-      <div className="fqa-parent">
+      <div className="faq-parent">
         <div className="faq-list">
-          {showList.map((item, index) => getQnACard(item, index))}
+          {showList.map((item, index) => getQnA(item, index))}
         </div>
       </div>
     </div>

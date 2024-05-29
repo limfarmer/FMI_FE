@@ -1,25 +1,29 @@
 .box {
-  margin: 10px 0;
+  margin: 10px auto; /* 가로 중앙 정렬을 위해 auto 사용 */
+  width: 80%; /* 너비를 지정하여 중앙 정렬에 맞춤 */
 }
 
 .table {
   padding: 20px;
+  margin: 0 auto; /* 가로 중앙 정렬 */
 }
 
 .text {
-  width: 660px;
+  width: 100%;
   font-size: 30px;
   padding-bottom: 20px;
   border-bottom: 1px solid #ccc;
+  color: black;
 }
 
 .date {
-  padding-top: 5px;
+  padding-top: 15px;
   color: gray;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .content {
   font-size: 15px;
   padding-top: 20px;
+  color: black;
 }

@@ -1,0 +1,13 @@
+.layout {
+  margin: 200px 175px 0; /* 가로 중앙 정렬을 위해 auto 사용 */
+  width: 80%; /* 너비를 지정하여 중앙 정렬에 맞춤 */
+  background-color: #fff;
+  border: solid 2px black;
+  border-radius: 40px;
+  padding: 10px 20px;
+}
+
+.content {
+  margin: auto;
+  padding: 30px;
+}

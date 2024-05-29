@@ -15,6 +15,12 @@ import FindIdPage from "./pages/FindIdPage"; // 추가
 import FindPasswordPage from "./pages/FindPasswordPage"; // 추가
 import { LoginProvider, LoginContext } from "./context/LoginContext";
 import { useContext } from "react";
+import FAQ from "./pages/faq/FAQ";
+import Notice from "./pages/notice/Notice";
+import Notice1 from "./pages/notice/Notice1";
+import Notice2 from "./pages/notice/Notice2";
+import Notice3 from "./pages/notice/Notice3";
+import Notice4 from "./pages/notice/Notice4";
 
 const ProtectedRoute = ({ element }) => {
   const { user } = useContext(LoginContext);
@@ -28,6 +34,12 @@ function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Main />} />
+            <Route path="/FAQ" element={<FAQ />} />
+            <Route path="/Notice" element={<Notice />} />
+            <Route path="/Notice/Notice1" element={<Notice1 />} />
+            <Route path="/Notice/Notice2" element={<Notice2 />} />
+            <Route path="/Notice/Notice3" element={<Notice3 />} />
+            <Route path="/Notice/Notice4" element={<Notice4 />} />
             <Route
               path="/TeamDetailPage/:teamName"
               element={<TeamDetailPage />}
@@ -42,6 +54,7 @@ function App() {
           {/* 여기서 이름 통일 */}
           <Route path="/find-id" element={<FindIdPage />} />
           <Route path="/find-password" element={<FindPasswordPage />} />
+          <Route path="/find-id" element={<FindIdPage />} />
         </Routes>
       </Router>
     </LoginProvider>

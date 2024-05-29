@@ -4,13 +4,14 @@
 
 .table {
   line-height: 1.5;
-  margin: 20px;
+  margin: 0 auto; /* 테이블을 가로로 가운데 정렬 */
 }
 
 .text {
   width: 80%;
-  padding: 20px;
+  padding: 30px;
   border-bottom: 1px solid #ccc;
+  color: black;
 }
 
 .link {
@@ -20,4 +21,5 @@
 
 .date {
   text-align: justify;
+  color: black;
 }

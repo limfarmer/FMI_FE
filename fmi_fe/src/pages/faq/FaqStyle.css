@@ -1,11 +1,14 @@
-.fqa-parent {
+.faq-parent {
+  margin-top: 100px;
+  margin-left: 135px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .faq-list {
-  width: 80%;
+  width: 100%; /* 필요에 따라 너비를 조정 */
+  max-width: 800px; /* 너무 넓어지지 않도록 최대 너비 설정 */
 }
 
 .faq-card {
@@ -19,7 +22,7 @@
   flex-direction: column;
 }
 
-.faq-card-title {
+.faq-title {
   display: flex;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -27,16 +30,16 @@
   cursor: pointer;
 }
 
-.faq-card-answer {
+.faq-answer {
   position: relative;
   padding-top: 1rem;
   padding-bottom: 1.5rem;
-  padding-right: 2rem;
+  padding-right: 1.5rem;
   border: 0px solid rgba(225, 228, 230, 0.5);
   border-top-width: 1px;
 }
 
-.faq-card-none {
+.faq-none {
   display: none;
 }
 
