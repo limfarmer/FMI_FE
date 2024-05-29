@@ -11,6 +11,9 @@ const TeamDetailPage = () => {
   const [versus, setVersus] = useState([]);
   const [active, setActive] = useState(false);
   const [teamText, setTeamText] = useState("");
+  const [loading, setLoading] = useState(true);
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,6 +24,8 @@ const TeamDetailPage = () => {
         setTeamText("팀 연혁");
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
     if (teamName) {
@@ -110,6 +115,14 @@ const TeamDetailPage = () => {
     const sections = document.querySelectorAll(".section");
     sections.forEach((section) => {
       observer.observe(section);
+    });
+
+    // Check visibility initially
+    sections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+        section.classList.add("visible");
+      }
     });
 
     return () => {
